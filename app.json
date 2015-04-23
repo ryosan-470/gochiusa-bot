@@ -1,0 +1,6 @@
+{
+    "name": "gochiusa-bot",
+    "env": {
+        "BUILDPACK_URL:" "https://github.com/jtwp470/gochiusa-bot.git"
+    }
+}
