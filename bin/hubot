@@ -1,8 +1,6 @@
 #!/bin/sh
-
-set -e
-
 npm install
-export PATH="node_modules/hubot/bin:$PATH"
 
+HUBOT_SLACK_TOKEN=xoxb-1234-5678-91011-00e4dd
+export PATH="node_modules/hubot/bin/hubot:$PATH"
 exec hubot --name "gochiusa-bot" "$@"

@@ -4,7 +4,7 @@
 # Commands:
 #    :gochiusa / @gochiusa - 以下の画像をランダムで
 gochiusa_img = [
-  'http://imgcc.naver.jp/kaze/mission/USER/20140516/14/1275194/21/1920x1080x8da0c53f97e485187886a9.jpg',
+'http://imgcc.naver.jp/kaze/mission/USER/20140516/14/1275194/21/1920x1080x8da0c53f97e485187886a9.jpg',
 'http://imgcc.naver.jp/kaze/mission/USER/20140509/14/1275194/20/1920x1080x65f4f89850fea522e78e69.jpg',
 'http://imgcc.naver.jp/kaze/mission/USER/20140411/14/1275194/7/1920x1080xf0b3f2cee0241418f01e4c.jpg',
 'http://imgcc.naver.jp/kaze/mission/USER/20140627/14/1275194/26/1920x1080xfab415dfa7cfd41277c80b.jpg',
@@ -545,5 +545,5 @@ gochiusa_img = [
   ]
 
 module.exports = (robot) ->
-  robot.hear /:gochiusa|@gochiusa/, (msg) ->
+  robot.hear /:@gochiusa|ごちうさ/, (msg) ->
     msg.send msg.random gochiusa_img
