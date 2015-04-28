@@ -13,7 +13,7 @@ chino = [
   ]
 
 module.exports = (robot) ->
-  robot.hear /:chino|@chino/, (msg) ->
+  robot.hear /chino|@chino/, (msg) ->
     msg.send msg.random chino
 
   robot.hear /(眠|ねむ)い/i, (msg) ->

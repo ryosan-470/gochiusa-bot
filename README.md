@@ -1,5 +1,7 @@
 # gochiusa-bot
 
+[![Build Status](https://travis-ci.org/jtwp470/gochiusa-bot.svg)](https://travis-ci.org/jtwp470/gochiusa-bot)
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 gochiusa-bot is "Is the order a rabbit?" BOT.
@@ -9,5 +11,16 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 ## How to contribute
 
 1. [Fork](https://github.com/jtwp470/gochiusa-bot/fork) this repository.
-2. Create a branch for your edits.
-3. Push and submit your pull request
+2. Check other pull request because we don't accept a redudant request.
+3. Push and submit your pull request.
+
+## Feature
+
+* ごちうさというフレーズに反応してアニメ画像をランダムで吐きます.
+* chino / @chino でチノちゃんがランダムでつぶやきます.
+
+## 機能追加
+基本的には`scripts/hoge.coffee`にCoffeeScriptで拡張機能を書きます.面白い機能やほしい機能があれば是非プルリクエストやIssueを立てていただけると幸いです.
+
+## License
+MIT

@@ -547,3 +547,6 @@ gochiusa_img = [
 module.exports = (robot) ->
   robot.hear /@gochiusa|ごちうさ/, (msg) ->
     msg.send msg.random gochiusa_img
+
+  robot.hear /こころ/, (msg) ->
+    msg.send "こころぴょんぴょん"
