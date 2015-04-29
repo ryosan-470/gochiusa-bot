@@ -18,6 +18,7 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 
 * ごちうさというフレーズに反応してアニメ画像をランダムで吐きます.
 * chino / @chino でチノちゃんがランダムでつぶやきます.
+* `$`で囲まれた部分をLaTeXと認識して数式を画像化したものを返します.
 
 ## 機能追加
 基本的には`scripts/hoge.coffee`にCoffeeScriptで拡張機能を書きます.面白い機能やほしい機能があれば是非プルリクエストやIssueを立てていただけると幸いです.

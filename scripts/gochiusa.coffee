@@ -2,7 +2,8 @@
 #   ごちうさ画像 BOT
 #
 # Commands:
-#    :gochiusa / @gochiusa - 以下の画像をランダムで
+#    gochiusa / @gochiusa - 以下の画像をランダムで
+#    こころ - こころぴょんぴょんと返す
 gochiusa_img = [
   'http://imgcc.naver.jp/kaze/mission/USER/20140516/14/1275194/21/1920x1080x8da0c53f97e485187886a9.jpg',
   'http://imgcc.naver.jp/kaze/mission/USER/20140509/14/1275194/20/1920x1080x65f4f89850fea522e78e69.jpg',
@@ -545,7 +546,7 @@ gochiusa_img = [
 ]
 
 module.exports = (robot) ->
-  robot.hear /@gochiusa|ごちうさ/, (msg) ->
+  robot.hear /gochiusa|ごちうさ/, (msg) ->
     msg.send msg.random gochiusa_img
 
   robot.hear /こころ/, (msg) ->
