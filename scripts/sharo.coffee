@@ -9,5 +9,5 @@ sharo = [
   ]
 
 module.exports = (robot) ->
-  robot.hear /:sharo|@sharo/, (msg) ->
+  robot.hear /sharo|@sharo/, (msg) ->
     msg.send msg.random sharo
