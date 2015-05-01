@@ -4,6 +4,7 @@
 # TODO:コマンドラインオプションでいろいろ引き受ける感じにする
 import json
 import argparse
+import urllib.error
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
@@ -36,13 +37,18 @@ def parse_naver(url):
     """
     href_list = list()
     print("Open..." + url)
-    html = urlopen(url)
-    soup = BeautifulSoup(html)
-    for link in soup.find_all('a'):
-        t = link.get('href')
-        if t is not None:
-            href_list.append(t)
-    return href_list
+    try:
+        html = urlopen(url)
+        soup = BeautifulSoup(html)
+        for link in soup.find_all('a'):
+            t = link.get('href')
+            if t is not None:
+                href_list.append(t)
+    except urllib.error.URLError as e:
+        print("Resource not found or other error")
+        print("Detail:" + e)
+    finally:
+        return href_list
 
 
 def main(max_page, base_url, output_json):
@@ -57,10 +63,16 @@ def main(max_page, base_url, output_json):
     for url in href_list:
         picture_list.extend(parse_naver(url))
 
-    picture_list = list(filter(lambda x: "http://imgcc." in x,
-                               set(picture_list)))
+    def isendsuffix(x):
+        for i in [".jpg", ".png", ".gif"]:
+            if x.endswith(i):
+                return True
+        return False
 
-    write2json(output_json, picture_list)
+    l = []
+    l.extend(list(filter(lambda x: isendsuffix(x), set(picture_list))))
+    l = sorted(list(set(l)))
+    write2json(output_json, l)
 
 
 def parser_arguments():
