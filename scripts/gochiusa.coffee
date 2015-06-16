@@ -8,7 +8,7 @@
 gochiusa_img = require './data/gochiusa_matome.json'
 
 module.exports = (robot) ->
-  robot.hear /gochiusa|ごちうさ/, (msg) ->
+  robot.hear /ごちうさ/, (msg) ->
     msg.send msg.random gochiusa_img
 
   robot.hear /こころ/, (msg) ->
