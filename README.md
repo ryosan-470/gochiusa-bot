@@ -25,12 +25,12 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 2. Check other pull request because we don't accept a redudant request.
 3. Push and submit your pull request. (Please submit your code to accept CI test.)
 
-Please refer to the [guide](#12) of sending the pull request on GitHub. (Japanese)
+Please refer to the [guide](https://github.com/jtwp470/gochiusa-bot/issues/12) of sending the pull request on GitHub. (Japanese)
 
 ## Contributors
 
 * @dorapon2000
-    * 点数計算機能の追加 #13
+    * [点数計算機能の追加](https://github.com/jtwp470/gochiusa-bot/pull/13)
 
 ## License
 The MIT License (MIT)
