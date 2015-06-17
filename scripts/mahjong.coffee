@@ -9,22 +9,15 @@
 #  麻雀の役を登録するルールとして雀頭が予め登録してあり面子4つと組み合わせて出力することにします.
 #  きちんと考えて書かないと字牌が5個とか出てしまうので考えてかいてください. (特に順子を追加するとき)
 #
-# 雀頭
-heads = [
-  ":hai-ton: :hai-ton:",     # 東
-  ":hai-sha: :hai-sha:",     # 西
-  ":hai-nan: :hai-nan:",     # 南
-  ":hai-pei: :hai-pei:",     # 北
-  ":hai-hatsu: :hai-hatsu:", # 発
-  ":hai-chun: :hai-chun:",   # 中
-  ":hai-haku: :hai-haku:",   # 白
-]
 
-# 役(面子が4つ)
-hands = [
-  ":1man: :2man: :3man: :4man: :5man: :6man: :7man: :8man: :9man: :1so: :2so: :3so:",
-  ":hai-ton: :1man: :2man: :3man: :4man: :5man: :6man: :7man: :8man: :9man: :1so: :1so:",
-]
+jhands1 = [":hai-ton:",":hai-sha:",":hai-nan:",":hai-pei:",":hai-hatsu:",":hai-chun:",":hai-haku:",]
+
+hands1 = [[":1man:", ":2man:", ":3man:", ":4man:", ":5man:", ":6man:", ":7man:", ":8man:", ":9man:",],
+[":1so:",":2so:",":3so:",":4so:",":5so:",":6so:",":7so:",":8so:",":9so:",],
+[":1pin:",":2pin:",":3pin:",":4pin:",":5pin:",":6pin:",":7pin:",":8pin:",":9pin:"],]
+
+
+
 
 # 10の位を切り上げ
 carry10 = (num) ->
@@ -33,13 +26,150 @@ carry10 = (num) ->
 # 1の位を切り上げ
 carry1 = (num) ->
   Math.ceil(num / 10) * 10   # 小数にしてから小数点以下を切り捨てる
-
+                
 module.exports = (robot) ->
   robot.hear /mahjong|麻雀|マージャン|まーじゃん/, (msg) ->
-    head = msg.random heads
-    hand = msg.random hands
-    msg.send "#{head} #{hand}"
+    kaze = (n1,n2) ->
+        if n1 < 5
+                msg.send "場風:北"
+        else if 5 <= n1 < 20
+                msg.send "場風:西"
+        else if 20 <= n1 < 40
+                msg.send "場風:南"
+        else msg.send "場風:東"
+        switch n2
+                when 1 then msg.send "自風:東"
+                when 2 then msg.send "自風:南"
+                when 3 then msg.send "自風:北"
+                else msg.send "自風:西"      
+    #牌のカウント
+    jhcount = [0,0,0,0,0,0,0]
+    hcount = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],]
+    #ドラ設定
+    dorandam = Math.floor(Math.random()*4)+1
+    if dorandam == 1
+            doj = Math.floor(Math.random()*7)+1
+            dojh = doj-1
+            jhcount[dojh] = jhcount[dojh]+1
+            msg.send "ドラ:#{jhands1[dojh]}"
+    else
+            dom = Math.floor(Math.random()*3)+1
+            domsp = dom-1
+            dora = Math.floor(Math.random()*9)+1
+            doh = dora-1
+            hcount[domsp][doh] = hcount[domsp][doh]+1
+            msg.send "ドラ:#{hands1[domsp][doh]}"
+    #雀頭生成 
+    #雀頭選択用乱数生成1(字牌か数牌か)
+    headra = Math.floor(Math.random() * 4)+1
+    #雀頭選択用乱数生成2(字牌を選んだ場合)
+    headrb = Math.floor(Math.random() * 7)+1
+    #雀頭選択用乱数生成3(数牌を選んだ場合)
+    headrc = Math.floor(Math.random() * 9)+1
+    hb = headrb-1
+    hc = headrc-1
+    count = 1
+    if headra == 1
+        loop
+                hbodyrb = Math.floor(Math.random() * 7)+1
+                heb = hbodyrb-1
+                break unless jhcount[heb] >= 3
+        head1 = jhands1[heb].concat(jhands1[heb])
+        jhcount[heb] = jhcount[heb]+2
+    else
+        hms = Math.floor(Math.random()*3)+1
+        hmsp = hms-1    
+        loop
+                hbodyrc = Math.floor(Math.random() * 9)+1
+                hc = hbodyrc-1
+                break unless hcount[hmsp][hc] >= 3
+        head1 = hands1[hmsp][hc].concat(hands1[hmsp][hc])
+        hcount[hmsp][hc] = hcount[hmsp][hc]+2
 
+    #場風、自風の設定(関数呼び出し)
+    bakaze = Math.floor(Math.random() * 100)+1
+    mykaze = Math.floor(Math.random() * 4)+1
+    kaze.call(null,bakaze,mykaze)
+    
+    #makebody!
+    #body!
+    body = []
+    finalbody = []
+    #順子にするのか刻子にするのかの乱数生成
+
+
+    #字牌の場合の乱数生成
+    #bodyrb = Math.floor(Math.random() * 7)+1
+    #数牌の場合の乱数生成
+    bodyrc = Math.floor(Math.random() * 9)+1
+    bb = bodyrb-1
+    bc = bodyrc-1
+    count = [0,0,0,0,0]
+
+    for i in [0..3]
+        j = 5            
+        j = j - i
+        sork = Math.floor(Math.random() * 2)+1
+        na = Math.floor(Math.random()*5)+1
+        naki = na-1
+        #乱数の生成(字牌にするか数牌にするか)
+        bodyra = Math.floor(Math.random() * 4)+1
+        switch sork
+                #刻子の場合
+                when 1
+                    ms = Math.floor(Math.random()*3)+1
+                    msp = ms-1
+                    if bodyra == 1
+                        loop
+                                bodyrb = Math.floor(Math.random() * 7)+1
+                                bb = bodyrb-1
+                                break unless jhcount[bb] >= 2
+
+                        jhcount[bb] = jhcount[bb]+3
+                        if naki == 1 || naki == 2 || naki == 3
+                                hand2 = ((["("].concat(jhands1[bb])).join("")).concat(jhands1[bb].concat(jhands1[bb].concat([")"])))
+                                count[j] = 1
+                        else
+                                hand2 = jhands1[bb].concat(jhands1[bb].concat(jhands1[bb]))
+                        body = body.concat(hand2)
+                    else
+                        loop
+                                bodyrb = Math.floor(Math.random() * 9)+1
+                                bb = bodyrb-1
+                                break unless hcount[msp][bb] >= 2
+                        hcount[msp][bb] = hcount[msp][bb]+3
+                        if naki == 1
+                                hand2 = ((["("].concat(hands1[msp][bb])).join("")).concat(hands1[msp][bb].concat(hands1[msp][bb].concat([")"])))
+                                count[j] = 1
+                        else
+                                hand2 = hands1[msp][bb].concat(hands1[msp][bb].concat(hands1[msp][bb]))
+                        body = body.concat(hand2)
+                #順子の場合
+                else
+                    ms1 = Math.floor(Math.random()*3)+1
+                    msp1 = ms1-1
+                    loop
+                        tbodyrb = Math.floor(Math.random() * 7)+1
+                        tbb = tbodyrb-1
+                        tbb1 = tbodyrb+1
+                        break unless hcount[msp1][tbb] >= 4 || hcount[msp1][tbb] >= 4 || hcount[msp1][tbb] >= 4
+                    hcount[msp1][bodyrb] = hcount[msp1][bodyrb]+1
+                    hcount[msp1][tbb] = hcount[msp1][tbb]+1
+                    hcount[msp1][tbb1] = hcount[msp1][tbb1]+1
+                    if naki == 1
+                        hand2 = ((["("].concat(hands1[msp1][tbb])).join("")).concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1].concat([")"])))
+                        count[j] = 1
+                    else
+                        hand2 = hands1[msp1][tbb].concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1]))
+                    body = body.concat(hand2)
+                    
+    #鳴きの判定                
+    b1 = body.shift()#i=3
+    b2 = body.shift()#i=2
+    b3 = body.shift()#i=1
+    b4 = body.shift()#i=0
+    msg.send "#{head1} #{b1} #{b2} #{b3} #{b4}"
+        
   robot.hear /(\d+)(翻|飜)(\d+)符/, (msg) ->
     han = parseInt(msg.match[1], 10)
     hu = parseInt(msg.match[3], 10)
