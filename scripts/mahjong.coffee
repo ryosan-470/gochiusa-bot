@@ -28,11 +28,11 @@ hands = [
 
 # 10の位を切り上げ
 carry10 = (num) ->
-  Math.ceil(num / 100) * 100 # 少数にしてから小数点以下を切り捨てる
+  Math.ceil(num / 100) * 100 # 小数にしてから小数点以下を切り捨てる
 
 # 1の位を切り上げ
 carry1 = (num) ->
-  Math.ceil(num / 10) * 10 # 少数にしてから小数点以下を切り捨てる
+  Math.ceil(num / 10) * 10   # 小数にしてから小数点以下を切り捨てる
 
 module.exports = (robot) ->
   robot.hear /mahjong|麻雀|マージャン|まーじゃん/, (msg) ->
@@ -40,20 +40,21 @@ module.exports = (robot) ->
     hand = msg.random hands
     msg.send "#{head} #{hand}"
 
-  robot.hear /(\d)翻(\d+)符/, (msg) ->
+  robot.hear /(\d+)(翻|飜)(\d+)符/, (msg) ->
     han = parseInt(msg.match[1], 10)
-    hu = parseInt(msg.match[2], 10)
+    hu = parseInt(msg.match[3], 10)
     if (hu <= 10 and 110 < hu) or (han == 1 and hu <= 20) or han < 1
       msg.send "404 Not Found"
       return
+
     hu = carry1(hu) if hu != 25
     parent_ron = 0
     parent_tumo = 0
     children_ron = 0
     children_tumo4parent = 0
     children_tumo4children = 0
-        
-    if 1 <= han <= 4 
+
+    if 1 <= han <= 4
         basic_point = hu * (2 ** (han + 2))
         if basic_point > 2000 then basic_point = 2000
         children_tumo4children = carry10(basic_point * 1)
