@@ -44,7 +44,7 @@ module.exports = (robot) ->
                 else msg.send "自風:西"      
     #牌のカウント
     jhcount = [0,0,0,0,0,0,0]
-    hcount = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],]
+    hcount = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]
     #ドラ設定
     dorandam = Math.floor(Math.random()*4)+1
     if dorandam == 1
@@ -126,9 +126,8 @@ module.exports = (robot) ->
                                 break unless jhcount[bb] >= 2
 
                         jhcount[bb] = jhcount[bb]+3
-                        if naki == 1 || naki == 2 || naki == 3
+                        if naki != 4
                                 hand2 = ((["("].concat(jhands1[bb])).join("")).concat(jhands1[bb].concat(jhands1[bb].concat([")"])))
-                                count[j] = 1
                         else
                                 hand2 = jhands1[bb].concat(jhands1[bb].concat(jhands1[bb]))
                         body = body.concat(hand2)
@@ -138,9 +137,8 @@ module.exports = (robot) ->
                                 bb = bodyrb-1
                                 break unless hcount[msp][bb] >= 2
                         hcount[msp][bb] = hcount[msp][bb]+3
-                        if naki == 1
+                        if naki == 1 || naki == 2
                                 hand2 = ((["("].concat(hands1[msp][bb])).join("")).concat(hands1[msp][bb].concat(hands1[msp][bb].concat([")"])))
-                                count[j] = 1
                         else
                                 hand2 = hands1[msp][bb].concat(hands1[msp][bb].concat(hands1[msp][bb]))
                         body = body.concat(hand2)
@@ -149,16 +147,18 @@ module.exports = (robot) ->
                     ms1 = Math.floor(Math.random()*3)+1
                     msp1 = ms1-1
                     loop
+                        #選択した牌の番号
                         tbodyrb = Math.floor(Math.random() * 7)+1
+                        #選択した牌の一つ前の牌の番号
                         tbb = tbodyrb-1
+                        #選択した牌の一つ後の牌の番号
                         tbb1 = tbodyrb+1
-                        break unless hcount[msp1][tbb] >= 4 || hcount[msp1][tbb] >= 4 || hcount[msp1][tbb] >= 4
-                    hcount[msp1][bodyrb] = hcount[msp1][bodyrb]+1
+                        break unless hcount[msp1][tbodyrb] >= 4 || hcount[msp1][tbb] >= 4 || hcount[msp1][tbb1] >= 4
+                    hcount[msp1][tbodyrb] = hcount[msp1][tbodyrb]+1
                     hcount[msp1][tbb] = hcount[msp1][tbb]+1
                     hcount[msp1][tbb1] = hcount[msp1][tbb1]+1
                     if naki == 1
                         hand2 = ((["("].concat(hands1[msp1][tbb])).join("")).concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1].concat([")"])))
-                        count[j] = 1
                     else
                         hand2 = hands1[msp1][tbb].concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1]))
                     body = body.concat(hand2)
