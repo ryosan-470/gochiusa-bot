@@ -26,7 +26,7 @@ carry10 = (num) ->
 # 1の位を切り上げ
 carry1 = (num) ->
   Math.ceil(num / 10) * 10   # 小数にしてから小数点以下を切り捨てる
-
+                
 module.exports = (robot) ->
   robot.hear /mahjong|麻雀|マージャン|まーじゃん/, (msg) ->
     kaze = (n1,n2) ->
@@ -41,34 +41,25 @@ module.exports = (robot) ->
                 when 1 then msg.send "自風:東"
                 when 2 then msg.send "自風:南"
                 when 3 then msg.send "自風:北"
-                else msg.send "自風:西"
-    # 牌のカウント
+                else msg.send "自風:西"      
+    #牌のカウント
     jhcount = [0,0,0,0,0,0,0]
     hcount = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]
-    # ドラ設定
+    #ドラ設定
     dorandam = Math.floor(Math.random()*4)+1
     if dorandam == 1
             doj = Math.floor(Math.random()*7)+1
             dojh = doj-1
-            jhcount[dojh] = jhcount[dojh]+1
-            msg.send "ドラ:#{jhands1[dojh]}"
+            msg.send "ドラ表示牌:#{jhands1[dojh]}"
     else
             dom = Math.floor(Math.random()*3)+1
             domsp = dom-1
             dora = Math.floor(Math.random()*9)+1
             doh = dora-1
             hcount[domsp][doh] = hcount[domsp][doh]+1
-            msg.send "ドラ:#{hands1[domsp][doh]}"
-    # 雀頭生成
-    # 雀頭選択用乱数生成1(字牌か数牌か)
+            msg.send "ドラ表示牌:#{hands1[domsp][doh]}"
+    #雀頭生成
     headra = Math.floor(Math.random() * 4)+1
-    # 雀頭選択用乱数生成2(字牌を選んだ場合)
-    headrb = Math.floor(Math.random() * 7)+1
-    # 雀頭選択用乱数生成3(数牌を選んだ場合)
-    headrc = Math.floor(Math.random() * 9)+1
-    hb = headrb-1
-    hc = headrc-1
-    count = 1
     if headra == 1
         loop
                 hbodyrb = Math.floor(Math.random() * 7)+1
@@ -78,7 +69,7 @@ module.exports = (robot) ->
         jhcount[heb] = jhcount[heb]+2
     else
         hms = Math.floor(Math.random()*3)+1
-        hmsp = hms-1
+        hmsp = hms-1    
         loop
                 hbodyrc = Math.floor(Math.random() * 9)+1
                 hc = hbodyrc-1
@@ -86,34 +77,36 @@ module.exports = (robot) ->
         head1 = hands1[hmsp][hc].concat(hands1[hmsp][hc])
         hcount[hmsp][hc] = hcount[hmsp][hc]+2
 
-    # 場風、自風の設定(関数呼び出し)
+    #場風、自風の設定(関数呼び出し)
     bakaze = Math.floor(Math.random() * 100)+1
     mykaze = Math.floor(Math.random() * 4)+1
     kaze.call(null,bakaze,mykaze)
-
-    # makebody!
-    # body!
+    
+    #makebody!
+    #body!
     body = []
     finalbody = []
-    # 順子にするのか刻子にするのかの乱数生成
-    # 字牌の場合の乱数生成
-    # bodyrb = Math.floor(Math.random() * 7)+1
-    # 数牌の場合の乱数生成
+    #順子にするのか刻子にするのかの乱数生成
+
+
+    #字牌の場合の乱数生成
+    #bodyrb = Math.floor(Math.random() * 7)+1
+    #数牌の場合の乱数生成
     bodyrc = Math.floor(Math.random() * 9)+1
     bb = bodyrb-1
     bc = bodyrc-1
     count = [0,0,0,0,0]
 
     for i in [0..3]
-        j = 5
+        j = 5            
         j = j - i
         sork = Math.floor(Math.random() * 2)+1
         na = Math.floor(Math.random()*5)+1
         naki = na-1
-        # 乱数の生成(字牌にするか数牌にするか)
+        #乱数の生成(字牌にするか数牌にするか)
         bodyra = Math.floor(Math.random() * 4)+1
         switch sork
-                # 刻子の場合
+                #刻子の場合
                 when 1
                     ms = Math.floor(Math.random()*3)+1
                     msp = ms-1
@@ -140,16 +133,16 @@ module.exports = (robot) ->
                         else
                                 hand2 = hands1[msp][bb].concat(hands1[msp][bb].concat(hands1[msp][bb]))
                         body = body.concat(hand2)
-                # 順子の場合
+                #順子の場合
                 else
                     ms1 = Math.floor(Math.random()*3)+1
                     msp1 = ms1-1
                     loop
-                        # 選択した牌の番号
+                        #選択した牌の番号
                         tbodyrb = Math.floor(Math.random() * 7)+1
-                        # 選択した牌の一つ前の牌の番号
+                        #選択した牌の一つ前の牌の番号
                         tbb = tbodyrb-1
-                        # 選択した牌の一つ後の牌の番号
+                        #選択した牌の一つ後の牌の番号
                         tbb1 = tbodyrb+1
                         break unless hcount[msp1][tbodyrb] >= 4 || hcount[msp1][tbb] >= 4 || hcount[msp1][tbb1] >= 4
                     hcount[msp1][tbodyrb] = hcount[msp1][tbodyrb]+1
@@ -160,14 +153,45 @@ module.exports = (robot) ->
                     else
                         hand2 = hands1[msp1][tbb].concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1]))
                     body = body.concat(hand2)
+                    
+    #鳴きの判定                
+    b1 = body.shift()#i=3
+    b2 = body.shift()#i=2
+    b3 = body.shift()#i=1
+    b4 = body.shift()#i=0
 
-    # 鳴きの判定
-    b1 = body.shift()# i = 3
-    b2 = body.shift()# i = 2
-    b3 = body.shift()# i = 1
-    b4 = body.shift()# i = 0
-    msg.send "#{head1} #{b1} #{b2} #{b3} #{b4}"
+    tibody = []
 
+    tijhcount = [0,0,0,0,0,0,0]
+    tihcount = [0,0,0,0,0,0,0,0,0]
+    for k in [0..6]
+            if headra == 1
+                loop
+                        hbodyrb = Math.floor(Math.random() * 7)+1
+                        heb = hbodyrb-1
+                        break unless tijhcount[heb] >= 1
+                head1 = jhands1[heb].concat(jhands1[heb])
+                tijhcount[heb] = tijhcount[heb]+2
+                tibody = tibody.concat(head1)
+            else
+                hms = Math.floor(Math.random()*3)+1
+                hmsp = hms-1    
+                loop
+                        hbodyrc = Math.floor(Math.random() * 9)+1
+                        hc = hbodyrc-1
+                        break unless tihcount[hmsp][hc] >= 1
+                head1 = hands1[hmsp][hc].concat(hands1[hmsp][hc])
+                tihcount[hmsp][hc] = tihcount[hmsp][hc]+2
+                tibody = tibody.concat(head1)
+
+    tirandom = Math.floor(Math.random()*20)+1
+    
+    if tirandom == 7
+            msg.send "#{tibody}" 
+    else
+            msg.send "#{head1} #{b1} #{b2} #{b3} #{b4}"
+    
+        
   robot.hear /(\d+)(翻|飜)(\d+)符/, (msg) ->
     han = parseInt(msg.match[1], 10)
     hu = parseInt(msg.match[3], 10)
