@@ -219,6 +219,7 @@ module.exports = (robot) ->
                 tibody = tibody.concat(tihead1)
 
     tirandom = Math.floor(Math.random()*20)+1
+    #tirandom = 7
     tb1 = tibody.shift()
     tb2 = tibody.shift()
     tb3 = tibody.shift()
@@ -227,11 +228,29 @@ module.exports = (robot) ->
     tb6 = tibody.shift()
 
     #国士実装
-    
+    kokusirandom = Math.floor(Math.random()*15)+1
+    #kokusirandom = 13
+    kokusibody  = ":1man::9man::1so::9so::1pin::9pin::hai-ton::hai-nan::hai-sha::hai-pei::hai-haku::hai-hatsu::hai-chun:"
+    kokushijork = Math.floor(Math.random()*2)+1
+    if kokushijork == 1
+            kr = Math.floor(Math.random()*3)+1
+            kor = kr-1
+            khai = Math.floor(Math.random()*2)+1
+            if khai == 1
+                    kokusipin = hands1[kor][0]
+            else
+                    kokusipin = hands1[kor][8]
+    else
+            jkr = Math.floor(Math.random()*7)+1
+            jikor = jkr-1
+            kokusipin = jhands1[jikor]
 
 
     if tirandom == 7 || tirandom == 14
-        msg.send "#{head1} #{tb1} #{tb2} #{tb3} #{tb4} #{tb5} #{tb6}"
+            if kokusirandom == 13
+                    msg.send "#{kokusibody} #{kokusipin}"
+            else
+                    msg.send "#{head1} #{tb1} #{tb2} #{tb3} #{tb4} #{tb5} #{tb6}"
     else
         msg.send "#{head1} #{b1} #{b2} #{b3} #{b4}"
 
