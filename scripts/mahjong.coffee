@@ -5,19 +5,11 @@
 #    :mahjong / 麻雀  という言葉に反応して役を返します.
 #    :%d翻%d符 /  という言葉で得点計算をします
 #
-# Documentation:
-#  麻雀の役を登録するルールとして雀頭が予め登録してあり面子4つと組み合わせて出力することにします.
-#  きちんと考えて書かないと字牌が5個とか出てしまうので考えてかいてください. (特に順子を追加するとき)
-#
-
 jhands1 = [":hai-ton:",":hai-sha:",":hai-nan:",":hai-pei:",":hai-hatsu:",":hai-chun:",":hai-haku:",]
 
 hands1 = [[":1man:", ":2man:", ":3man:", ":4man:", ":5man:", ":6man:", ":7man:", ":8man:", ":9man:",],
 [":1so:",":2so:",":3so:",":4so:",":5so:",":6so:",":7so:",":8so:",":9so:",],
 [":1pin:",":2pin:",":3pin:",":4pin:",":5pin:",":6pin:",":7pin:",":8pin:",":9pin:"],]
-
-
-
 
 # 10の位を切り上げ
 carry10 = (num) ->
@@ -26,7 +18,7 @@ carry10 = (num) ->
 # 1の位を切り上げ
 carry1 = (num) ->
   Math.ceil(num / 10) * 10   # 小数にしてから小数点以下を切り捨てる
-                
+
 module.exports = (robot) ->
   robot.hear /mahjong|麻雀|マージャン|まーじゃん/, (msg) ->
     kaze = (n1,n2) ->
@@ -41,7 +33,7 @@ module.exports = (robot) ->
                 when 1 then msg.send "自風:東"
                 when 2 then msg.send "自風:南"
                 when 3 then msg.send "自風:北"
-                else msg.send "自風:西"      
+                else msg.send "自風:西"
     #牌のカウント
     jhcount = [0,0,0,0,0,0,0]
     hcount = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]
@@ -69,7 +61,7 @@ module.exports = (robot) ->
         jhcount[heb] = jhcount[heb]+2
     else
         hms = Math.floor(Math.random()*3)+1
-        hmsp = hms-1    
+        hmsp = hms-1
         loop
                 hbodyrc = Math.floor(Math.random() * 9)+1
                 hc = hbodyrc-1
@@ -81,7 +73,7 @@ module.exports = (robot) ->
     bakaze = Math.floor(Math.random() * 100)+1
     mykaze = Math.floor(Math.random() * 4)+1
     kaze.call(null,bakaze,mykaze)
-    
+
     #makebody!
     #body!
     body = []
@@ -98,7 +90,7 @@ module.exports = (robot) ->
     count = [0,0,0,0,0]
 
     for i in [0..3]
-        j = 5            
+        j = 5
         j = j - i
         sork = Math.floor(Math.random() * 2)+1
         na = Math.floor(Math.random()*5)+1
@@ -153,8 +145,8 @@ module.exports = (robot) ->
                     else
                         hand2 = hands1[msp1][tbb].concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1]))
                     body = body.concat(hand2)
-                    
-    #鳴きの判定                
+
+    #鳴きの判定
     b1 = body.shift()#i=3
     b2 = body.shift()#i=2
     b3 = body.shift()#i=1
@@ -175,7 +167,7 @@ module.exports = (robot) ->
                 tibody = tibody.concat(head1)
             else
                 hms = Math.floor(Math.random()*3)+1
-                hmsp = hms-1    
+                hmsp = hms-1
                 loop
                         hbodyrc = Math.floor(Math.random() * 9)+1
                         hc = hbodyrc-1
@@ -185,13 +177,13 @@ module.exports = (robot) ->
                 tibody = tibody.concat(head1)
 
     tirandom = Math.floor(Math.random()*20)+1
-    
+
     if tirandom == 7
-            msg.send "#{tibody}" 
+            msg.send "#{tibody}"
     else
             msg.send "#{head1} #{b1} #{b2} #{b3} #{b4}"
-    
-        
+
+
   robot.hear /(\d+)(翻|飜)(\d+)符/, (msg) ->
     han = parseInt(msg.match[1], 10)
     hu = parseInt(msg.match[3], 10)
@@ -237,4 +229,3 @@ module.exports = (robot) ->
                 ツモ：親は #{parent_tumo} オールです
                       子は (#{parent_tumo} ,#{children_tumo4children}) です
              """
-

@@ -33,6 +33,7 @@ Please refer to the [guide](https://github.com/jtwp470/gochiusa-bot/issues/12) o
     * [点数計算機能の追加](https://github.com/jtwp470/gochiusa-bot/pull/13)
 * @index30, @sga0221
     * [麻雀役を出力する機能の追加](https://github.com/jtwp470/gochiusa-bot/issues/14)
+
 ## License
 The MIT License (MIT)
 
