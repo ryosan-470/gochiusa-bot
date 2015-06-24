@@ -16,7 +16,8 @@ hands1 = [[":1man:", ":2man:", ":3man:", ":4man:", ":5man:", ":6man:", ":7man:",
 [":1so:",":2so:",":3so:",":4so:",":5so:",":6so:",":7so:",":8so:",":9so:",],
 [":1pin:",":2pin:",":3pin:",":4pin:",":5pin:",":6pin:",":7pin:",":8pin:",":9pin:"],]
 
-
+#赤ドラ
+redhands = [":5mana:",":5soa:",":5pina:"]
 
 
 # 10の位を切り上げ
@@ -48,6 +49,8 @@ module.exports = (robot) ->
     #チートイ用カウント
     tijhcount = [0,0,0,0,0,0,0]
     tihcount = [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]
+    #赤ドラカウント
+    acount = [0,0,0]
 
     # ドラ設定
     dorandam = Math.floor(Math.random()*4)+1
@@ -121,6 +124,7 @@ module.exports = (robot) ->
     bb = bodyrb-1
     bc = bodyrc-1
     count = [0,0,0,0,0]
+    nakicount = 0
 
     for i in [0..3]
         j = 5
@@ -143,10 +147,10 @@ module.exports = (robot) ->
                                 bodyrb = Math.floor(Math.random() * 7)+1
                                 bb = bodyrb-1
                                 break unless jhcount[bb] >= 2
-
                         jhcount[bb] = jhcount[bb]+3
                         if naki != 4
                                 hand2 = ((["("].concat(jhands1[bb])).join("")).concat(jhands1[bb].concat(jhands1[bb].concat([")"])))
+                                nakicount = nakicount + 1
                         else
                                 hand2 = jhands1[bb].concat(jhands1[bb].concat(jhands1[bb]))
                         body = body.concat(hand2)
@@ -155,32 +159,68 @@ module.exports = (robot) ->
                                 bodyrb = Math.floor(Math.random() * 9)+1
                                 bb = bodyrb-1
                                 break unless hcount[msp][bb] >= 2
+                        akar = Math.floor(Math.random()*4)+1
                         hcount[msp][bb] = hcount[msp][bb]+3
                         if naki == 1 || naki == 2
-                                hand2 = ((["("].concat(hands1[msp][bb])).join("")).concat(hands1[msp][bb].concat(hands1[msp][bb].concat([")"])))
+                                if bb == 4 && akar == 1 && acount[msp] == 0
+                                        hand2 = ((["("].concat(hands1[msp][bb])).join("")).concat(redhands[msp].concat(hands1[msp][bb].concat([")"])))
+                                        acount[msp] = 1
+                                        nakicount = nakicount + 1
+                                else
+                                        hand2 = ((["("].concat(hands1[msp][bb])).join("")).concat(hands1[msp][bb].concat(hands1[msp][bb].concat([")"])))
+                                        nakicount = nakicount + 1
                         else
-                                hand2 = hands1[msp][bb].concat(hands1[msp][bb].concat(hands1[msp][bb]))
+                                if bb == 4 && akar == 1 && acount[msp] == 0
+                                        hand2 = hands1[msp][bb].concat(redhands[msp].concat(hands1[msp][bb]))
+                                        acount[msp] = 1
+                                else
+                                        hand2 = hands1[msp][bb].concat(hands1[msp][bb].concat(hands1[msp][bb]))
                         body = body.concat(hand2)
                 # 順子の場合
                 else
-                    ms1 = Math.floor(Math.random()*3)+1
-                    msp1 = ms1-1
-                    loop
-                        # 選択した牌の番号
-                        tbodyrb = Math.floor(Math.random() * 7)+1
-                        # 選択した牌の一つ前の牌の番号
-                        tbb = tbodyrb-1
-                        # 選択した牌の一つ後の牌の番号
-                        tbb1 = tbodyrb+1
-                        break unless hcount[msp1][tbodyrb] >= 4 || hcount[msp1][tbb] >= 4 || hcount[msp1][tbb1] >= 4
-                    hcount[msp1][tbodyrb] = hcount[msp1][tbodyrb]+1
-                    hcount[msp1][tbb] = hcount[msp1][tbb]+1
-                    hcount[msp1][tbb1] = hcount[msp1][tbb1]+1
-                    if naki == 1
-                        hand2 = ((["("].concat(hands1[msp1][tbb])).join("")).concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1].concat([")"])))
-                    else
-                        hand2 = hands1[msp1][tbb].concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1]))
-                    body = body.concat(hand2)
+                        ms1 = Math.floor(Math.random()*3)+1
+                        msp1 = ms1-1
+                        loop
+                                # 選択した牌の番号
+                                tbodyrb = Math.floor(Math.random() * 7)+1
+                                # 選択した牌の一つ前の牌の番号
+                                tbb = tbodyrb-1
+                                # 選択した牌の一つ後の牌の番号
+                                tbb1 = tbodyrb+1
+                                break unless hcount[msp1][tbodyrb] >= 4 || hcount[msp1][tbb] >= 4 || hcount[msp1][tbb1] >= 4
+                            akar = Math.floor(Math.random()*4)+1
+                            hcount[msp1][tbodyrb] = hcount[msp1][tbodyrb]+1
+                            hcount[msp1][tbb] = hcount[msp1][tbb]+1
+                            hcount[msp1][tbb1] = hcount[msp1][tbb1]+1
+                            if naki == 1
+                                if tbb == 4 && akar == 1 && acount[msp1] == 0
+                                        hand2 = ((["("].concat(redhands[msp1])).join("")).concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1].concat([")"])))
+                                        acount[msp1] = 1
+                                        nakicount = nakicount + 1
+                                else if tbb == 3 && akar == 1 && acount[msp1] == 0
+                                        hand2 = ((["("].concat(hands1[msp1][tbb])).join("")).concat(redhands[msp1].concat(hands1[msp1][tbb1].concat([")"])))
+                                        acount[msp1] = 1
+                                        nakicount = nakicount + 1
+                                else if tbb == 2 && akar == 1 && acount[msp1] == 0
+                                        acount[msp1] = 1
+                                        nakicount = nakicount + 1
+                                        hand2 = ((["("].concat(hands1[msp1][tbb])).join("")).concat(hands1[msp1][tbodyrb].concat(redhands[msp1].concat([")"])))
+                                else
+                                        nakicount = nakicount + 1 
+                                        hand2 = ((["("].concat(hands1[msp1][tbb])).join("")).concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1].concat([")"])))
+                            else
+                                if tbb == 4 && akar == 1 && acount[msp1] == 0
+                                        acount[msp1] = 1
+                                        hand2 = redhands[msp1].concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1]))
+                                else if tbb == 3 && akar == 1 && acount[msp1] == 0
+                                        acount[msp1] = 1
+                                        hand2 = hands1[msp1][tbb].concat(redhands[msp1].concat(hands1[msp1][tbb1]))
+                                else if tbb == 2 && akar == 1 && acount[msp1] == 0
+                                        acount[msp1] = 1
+                                        hand2 = hands1[msp1][tbb].concat(hands1[msp1][tbodyrb].concat(redhands[msp1]))
+                                else
+                                        hand2 = hands1[msp1][tbb].concat(hands1[msp1][tbodyrb].concat(hands1[msp1][tbb1]))
+                            body = body.concat(hand2)
     #検証用コメント
     #msg.send "字牌"
     #msg.send "#{jhcount}"
@@ -228,7 +268,7 @@ module.exports = (robot) ->
     tb6 = tibody.shift()
 
     #国士実装
-    kokusirandom = Math.floor(Math.random()*15)+1
+    kokusirandom = Math.floor(Math.random()*16)+1
     #kokusirandom = 13
     kokusibody  = ":1man::9man::1so::9so::1pin::9pin::hai-ton::hai-nan::hai-sha::hai-pei::hai-haku::hai-hatsu::hai-chun:"
     kokushijork = Math.floor(Math.random()*2)+1
@@ -246,13 +286,20 @@ module.exports = (robot) ->
             kokusipin = jhands1[jikor]
 
 
-    if tirandom == 7 || tirandom == 14
-            if kokusirandom == 13
+    if tirandom == 7 
+            if kokusirandom == 13 && kokusirandom == 1
                     msg.send "#{kokusibody} #{kokusipin}"
             else
                     msg.send "#{head1} #{tb1} #{tb2} #{tb3} #{tb4} #{tb5} #{tb6}"
     else
         msg.send "#{head1} #{b1} #{b2} #{b3} #{b4}"
+
+    #一発かどうかの判定
+    pon = Math.floor(Math.random()*8)+1
+    if pon == 1 && nakicount == 0
+            msg.send "一発だよ!!すごい!!"
+    else if pon == 1 && nakicount != 0
+            msg.send "なんで鳴いちゃったの？馬鹿なの？"
 
   robot.hear /(\d+)(翻|飜)(\d+)符/, (msg) ->
     han = parseInt(msg.match[1], 10)
