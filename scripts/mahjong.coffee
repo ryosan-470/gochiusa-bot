@@ -101,9 +101,9 @@ module.exports = (robot) ->
         # 使ってない牌を探す
         while true
           j = randNum(34)
-          if count[j] == 0
+          if count[j] < 2
             break
-        count[j]++
+        count[j] += 2
         str += int2hai(j) + int2hai(j) + " "
       return str
 
@@ -185,17 +185,22 @@ module.exports = (robot) ->
 
     # 槓ドラ，裏ドラ
     addDora = ->
-      str = "追加ドラ"
+      str = ""
       if !naita
-        for i in [0 .. kantsu]
+        str += "裏ドラ表示" + makeDora() + "  "
+      if kantsu > 0
+        str += "槓ドラ表示"
+        for i in [0 ... kantsu]
           str += makeDora()
-      for i in [0 ... kantsu]
-        str += makeDora()
+      if kantsu > 0 and !naita
+        # str += "  槓ウラ表示"
+        for i in [0 ... kantsu]
+          str += makeDora()
       return str
 
     # ドラ，風を表示する
     kaze_and_firstDora = ->
-      return "ドラ表示" + makeDora() + " 場風" + int2hai((randNum(4)) + 30) + " 自風" + int2hai((randNum(4)) + 30)
+      return "場風" + int2hai((randNum(4)) + 30) + " 自風" + int2hai((randNum(4)) + 30) + "         ドラ表示牌" + makeDora()
 
     ###
     * main
@@ -204,20 +209,27 @@ module.exports = (robot) ->
     * 鳴いた場合，33%の確率で罵倒される
     * 鳴かない場合，10%の確率で一発
     ###
-    msg.send "#{kaze_and_firstDora()}"
+    str1 = kaze_and_firstDora()
+    str2 = ""
     n = randNum(100)
     if n < 1
-      msg.send "#{kokushi()}"
+      str2 += kokushi()
     else if n < 6
-      msg.send "#{toitsu7()}"
+      str2 += toitsu7()
     else
-      msg.send "#{normal()}"
+      str2 += normal()
       if (!naita or kantsu > 0)
-        msg.send "#{addDora()}"
-      if naita and (randNum(3)) == 0
-        msg.send "何で鳴いちゃったんですか? バカなんですか?"
+        str1 += "        " + addDora()
+    if !naita
+      str1 += "                立直"
+    if naita and (randNum(3)) == 0
+        str2 +=  "\n\n何で鳴いちゃったんですか? バカなんですか?"
     if !naita and (randNum(10)) == 0
-      msg.send "一発ですよ! すごい!"
+      str2 +=  "\n\n一発ですよ! すごい!"
+    msg.send """#{str1}
+
+                #{str2}
+             """
 
 
   robot.hear /(\d+)(翻|飜)(\d+)符/, (msg) ->
