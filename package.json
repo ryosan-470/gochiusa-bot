@@ -24,5 +24,11 @@
     "engines": {
         "node": ">= 0.8.x",
         "npm": ">= 1.1x"
+    },
+    "scripts": {
+        "test": "./travis_test.sh"
+    },
+    "devDependencies": {
+        "coffeelint": "latest"
     }
 }

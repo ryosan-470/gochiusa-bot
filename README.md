@@ -15,11 +15,8 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 * chino / @chino でチノちゃんがランダムでつぶやきます.
 * `$`で囲まれた部分をLaTeXと認識して数式を画像化したものを返します.
 * 麻雀点数計算機能
-    * `3翻30符`とかで点数を返します. (Thanks to @dorapon2000)
+    * `3翻30符`とかで点数を返します. (Thanks to [@dorapon2000](https://github.com/dorapon2000))
     * 麻雀役出力機能 (Thanks to [@yusei](https://github.com/yusei), [@sga0221](https://github.com/sga0221), [@ksepynoin](https://github.com/ksepynoin))
-
-## 機能追加
-基本的には`scripts/hoge.coffee`にCoffeeScriptで拡張機能を書きます.面白い機能やほしい機能があれば是非プルリクエストやIssueを立てていただけると幸いです.
 
 ## How to contribute
 
@@ -28,6 +25,15 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 3. Push and submit your pull request. (Please submit your code to accept CI test.)
 
 Please refer to the [wiki](https://github.com/jtwp470/gochiusa-bot/wiki) if you will send your pull request. (Japanese)
+
+### :warning: CAUTION
+文法チェックを追加しました.CoffeeScriptが正しく書かれていないとエラーになります.(例えば2インデントのところを4インデントにしているなど)
+この文法チェックを通過するコードのみしかプルリクエストを受け付けないので気をつけてください.
+
+自分の環境で文法チェックをするときは`coffeelint`や`npm test`などを使ってみてください.
+
+Please check your code using `coffeelint` or `npm test` if you send me your pull request.
+I don't accept when your code is not passed the lint tests and running coffee.
 
 ## Contributors
 
