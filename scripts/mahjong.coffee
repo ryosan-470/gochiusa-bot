@@ -223,7 +223,7 @@ module.exports = (robot) ->
     if !naita
       str1 += "                立直"
     if naita and (randNum(3)) == 0
-        str2 +=  "\n\n何で鳴いちゃったんですか? バカなんですか?"
+      str2 +=  "\n\n何で鳴いちゃったんですか? バカなんですか?"
     if !naita and (randNum(10)) == 0
       str2 +=  "\n\n一発ですよ! すごい!"
     msg.send """#{str1}
@@ -256,25 +256,26 @@ module.exports = (robot) ->
     children_tumo4children = 0
 
     if 1 <= han <= 4
-        basic_point = hu * (2 ** (han + 2))
-        if basic_point > 2000 then basic_point = 2000
-        children_tumo4children = carry10(basic_point * 1)
-        children_tumo4parent = carry10(basic_point * 2)
-        children_ron = carry10(basic_point * 4)
-        parent_tumo  = carry10(basic_point * 2)
-        parent_ron = carry10(basic_point * 6)
+      basic_point = hu * (2 ** (han + 2))
+      if basic_point > 2000 then basic_point = 2000
+      children_tumo4children = carry10(basic_point * 1)
+      children_tumo4parent = carry10(basic_point * 2)
+      children_ron = carry10(basic_point * 4)
+      parent_tumo  = carry10(basic_point * 2)
+      parent_ron = carry10(basic_point * 6)
     else if 5 <= han
-        switch han
-          when 5 then children_ron = 8000
-          when 6, 7 then children_ron = 12000
-          when 8, 9, 10 then children_ron = 16000
-          when 11, 12 then children_ron = 24000
-          when 13 then children_ron = 32000
-          else children_ron = 32000
-        children_tumo4parent = children_ron / 2
-        children_tumo4children = children_ron / 4
-        parent_ron = children_ron * 1.5
-        parent_tumo = parent_ron / 3
+      switch han
+        when 5 then children_ron = 8000
+        when 6, 7 then children_ron = 12000
+        when 8, 9, 10 then children_ron = 16000
+        when 11, 12 then children_ron = 24000
+        when 13 then children_ron = 32000
+        else children_ron = 32000
+
+      children_tumo4parent = children_ron / 2
+      children_tumo4children = children_ron / 4
+      parent_ron = children_ron * 1.5
+      parent_tumo = parent_ron / 3
 
     parent_ron = parent_ron.toString()
     parent_tumo = parent_tumo.toString()
