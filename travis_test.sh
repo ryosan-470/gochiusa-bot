@@ -13,6 +13,10 @@ for f in $COFFEE_FILES ; do
     cmd="coffee -c -p $f"
     echo -en "$cmd"
     $cmd >/dev/null
+    if [ $? -ne 0 ]; then
+        echo "Failed to compile $f"
+        exit ${return_val}
+    fi
     echo " # √"
 done
 
