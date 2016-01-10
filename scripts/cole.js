@@ -23,12 +23,12 @@
 	}
 	module.exports=function(robot){	    
 		//入力された文章の取得
-		return robot.hear(/cole((.*))/i,function(msg){
+		return robot.hear(/say(\s*)cole(\s*)(\S+)/i,function(msg){
 			//APIに渡すためのデータ
 			var data;
 			data = JSON.stringify({
 				"app_id" : app_ID,
-				"sentence" : msg.match[1]	
+				"sentence" : msg.match[3]	
 			});
 			return robot.http(url).header("Content-type","application/json").post(data)(function(err, res, body){
 				var result = JSON.parse(body);
@@ -40,7 +40,7 @@
 				//「〜ガ、」以降の部分の決定
 				var ans2 = but_ans(ans1[1]); 
 				//出力
-				return msg.send(ans1[0] + but + ans2);
+				return msg.send(":cole: ＜" + ans1[0] + but + ans2);
 			});    
 		});
 	};
@@ -51,25 +51,27 @@ function jikukaiseki(sentence){
 	var ans = "";
 	var origin  = "";
 	var joshi = "";
+	var last_word = sentence[sentence.length - 1][sentence[0].length - 1];
+	
 	var meishi_last = false;
 	
 	for(i in sentence){
 		for(j in sentence[i]){
 			var tmp = sentence[i][j];
+			
 			if(tmp[2] !="＄"){ //読めない文字を削除		
 				
 				var is_joshi = tmp[1].indexOf("助"); //助詞の判定
 				var is_hanteishi = tmp[1].indexOf("判"); //判定詞の判定
+				var is_Meishi = tmp[1].indexOf("名詞"); //名詞、固有名詞判定
+				var is_Keiyoushi = tmp[1].indexOf("形容詞");//形容詞の判定
+				
 				
 				if(is_joshi != -1 || is_hanteishi != -1){
 					joshi += tmp[2];
 				}else{
 					//名詞かどうか
-					if(tmp[1] == "名詞"){
-						meishi_last = true;
-					}else{
-						meishi_last = false;
-					}
+					meishi_last = (is_Meishi != -1);
 					
 					ans += joshi + tmp[2];
 					joshi = ""; //リセット
@@ -78,9 +80,15 @@ function jikukaiseki(sentence){
 			}
 		}
 	}
+	//語尾が名詞かどうか
 	if(meishi_last){
 		ans += "ダ";
 	}
+	//疑問文の判定
+	if(last_word[0].indexOf("？") != -1 || last_word[0].indexOf("?") != -1){ 
+		ans = "ソレハワカラナイ";
+	}
+	
 	return [ans,origin];
 }
 
@@ -96,12 +104,15 @@ function but_ans(ans1){
 		var hour = (jikan.getHours() + 24 - 14) % 24;
 		var minute = jikan.getMinutes();
 		
-		return "カナダ(オタワ)ハイマ、" + hour + "時" + minute + "分デス。" ;
+		return "カナダハイマ、" + hour + "時" + minute + "分デス。" ;
 	}
 	
 	var sentence = [
 		"ゴク小サイハンイデカンガエルトソウデハナイ.",
-		"FDTDヲツカウコトデ、コノモンダイハトケマス."
+		"FDTDヲツカウコトデ、コノモンダイハトケマス.",
+		"ソレハフクザツデアルトハイエナイ",
+		"ソレハナニニテイルトオモイマスカ？",
+		"シリョウハマダキテイナイ"
 	];
 	
 	var num = getRandomInt(0, sentence.length - 1);
