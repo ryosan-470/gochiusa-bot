@@ -8,6 +8,10 @@
 //   hubot > cole めっちゃ暇
 //   hubot > メッチャヒマダガ、fugafuga
 //
+//   〜例3〜
+//   hubot > cole 今何時？
+//   hubot > ワカラナイガ、カナダハxx時yy分デス
+//
 // Commands:
 //   cole 文章 - return ブンショウダガ、hogehoge
 //   
@@ -23,7 +27,7 @@
 	}
 	module.exports=function(robot){	    
 		//入力された文章の取得
-		return robot.hear(/say(\s*)cole(\s*)(\S+)/i,function(msg){
+		return robot.hear(/say(\s*)cole(\s*)(\S.*)/i,function(msg){
 			//APIに渡すためのデータ
 			var data;
 			data = JSON.stringify({
@@ -51,42 +55,53 @@ function jikukaiseki(sentence){
 	var ans = "";
 	var origin  = "";
 	var joshi = "";
-	var last_word = sentence[sentence.length - 1][sentence[0].length - 1];
-	
-	var meishi_last = false;
+	var last_word = sentence[sentence.length - 1][sentence[sentence.length - 1].length - 1]; //最後の文字の取得
+	var add_Da = false;
 	
 	for(i in sentence){
 		for(j in sentence[i]){
 			var tmp = sentence[i][j];
 			
-			if(tmp[2] !="＄"){ //読めない文字を削除		
+			//if(tmp[2] !="＄"){ //読めない文字を削除		
 				
-				var is_joshi = tmp[1].indexOf("助"); //助詞の判定
-				var is_hanteishi = tmp[1].indexOf("判"); //判定詞の判定
-				var is_Meishi = tmp[1].indexOf("名詞"); //名詞、固有名詞判定
-				var is_Keiyoushi = tmp[1].indexOf("形容詞");//形容詞の判定
+			var is_joshi = tmp[1].indexOf("助"); //助詞の判定
+			var is_hanteishi = tmp[1].indexOf("判"); //判定詞の判定
+			var is_Meishi = tmp[1].indexOf("名詞"); //名詞、固有名詞判定
+			var is_Kana = tmp[1].indexOf("Kana"); //Kana（ただの仮名文字）の判定
+			var is_Doku = tmp[1].indexOf("独"); //独立詞の判定
+			
+			var is_AlPhabet = (tmp[1] == "Alphabet" || tmp[1] == "Roman");//アルファベット(またはRoman)の判定
+			
+			
+			if(tmp[2] == "＄"){ //読めない文字の場合
+				joshi += " ";
+			}else if(is_joshi != -1 || is_hanteishi != -1  || is_Kana != -1){ //助詞または判定詞、仮名文字の場合
+				joshi += tmp[2];
+			}else{  //それ以外
 				
+				//最後に処理した文字が名詞または独立詞、アルファベットかどうか
+				add_Da = (is_Meishi != -1 || is_Doku != -1 || is_AlPhabet);
 				
-				if(is_joshi != -1 || is_hanteishi != -1){
-					joshi += tmp[2];
+				//アルファベットの場合
+				if(is_AlPhabet){
+					ans += joshi + tmp[0];		
 				}else{
-					//名詞かどうか
-					meishi_last = (is_Meishi != -1);
-					
-					ans += joshi + tmp[2];
-					joshi = ""; //リセット
+					ans += joshi + tmp[2]; //今まで追加していた助詞、判定詞を追加
 				}
-				origin += tmp[0];
+				joshi = ""; //助詞、判定詞のリセット
+				
 			}
+			origin += tmp[0];
 		}
+		//}
 	}
-	//語尾が名詞かどうか
-	if(meishi_last){
+	//「ダ」を追加
+	if(add_Da){
 		ans += "ダ";
 	}
 	//疑問文の判定
 	if(last_word[0].indexOf("？") != -1 || last_word[0].indexOf("?") != -1){ 
-		ans = "ソレハワカラナイ";
+		ans = "ワカラナイ"; //疑問文の場合、「ワカラナイガ〜」と答える
 	}
 	
 	return [ans,origin];
@@ -112,7 +127,7 @@ function but_ans(ans1){
 		"FDTDヲツカウコトデ、コノモンダイハトケマス.",
 		"ソレハフクザツデアルトハイエナイ",
 		"ソレハナニニテイルトオモイマスカ？",
-		"シリョウハマダキテイナイ"
+		"シリョウハマダキテイナイ",
 	];
 	
 	var num = getRandomInt(0, sentence.length - 1);
