@@ -16,7 +16,7 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 * `$`で囲まれた部分をLaTeXと認識して数式を画像化したものを返します.
 * 麻雀点数計算機能
     * `3翻30符`とかで点数を返します. (Thanks to [@dorapon2000](https://github.com/dorapon2000))
-    * 麻雀役出力機能 (Thanks to [@yusei](https://github.com/yusei), [@sga0221](https://github.com/sga0221), [@ksepynoin](https://github.com/ksepynoin))
+    * 麻雀役出力機能 (Thanks to [@index30](https://github.com/index30), [@sga0221](https://github.com/sga0221), [@ksepynoin](https://github.com/ksepynoin))
 * ごちうさ言語の利用 (詳細は`glang help`を参考のこと)
 
 ## How to contribute
