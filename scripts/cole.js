@@ -12,6 +12,10 @@
 //   hubot > cole 今何時？
 //   hubot > ワカラナイガ、カナダハxx時yy分デス
 //
+//   〜例4〜
+//   hubot > cole 今日の飯
+//   hubot > キョウノメシダガ、「かつ大」ガイイトオモイマス。
+//
 // Commands:
 //   cole 文章 - return ブンショウダガ、hogehoge
 //   
@@ -109,9 +113,32 @@ function jikukaiseki(sentence){
 
 //「〜ガ、」以降の部分の出力
 function but_ans(ans1){
+	//時間判定
 	var is_Hour = ans1.indexOf("時");
 	var is_Min = ans1.indexOf("分");
+
+	//飯判定
+	var is_Meshi = ans1.indexOf("飯");
+	//１．飯判定
+	if(is_Meshi != -1){
+		var meshi = require("./data/meshi_shop.json");
+
+		//選択するもののリストの作成（乱数）
+		var num = [-1,-1,-1];
+		for(var i = 0; i < 3; i++){
+			while(true){
+				var tmp = getRandomInt(0, meshi.length - 1);
+				if(num.indexOf(tmp) == -1){
+					num[i] = tmp;
+					break;
+				}
+			}
+		}
+		return "「" + meshi[num[0]] + "」「" + meshi[num[1]] + "」「" + meshi[num[2]] + "」ガイイトオモイマス.";
+		
+	}
 	
+	//２．時間判定
 	if(is_Hour != -1 || is_Min != -1){
 		var jikan= new Date();
 		
@@ -122,12 +149,15 @@ function but_ans(ans1){
 		return "カナダハイマ、" + hour + "時" + minute + "分デス。" ;
 	}
 	
+	//３．その他
 	var sentence = [
 		"ゴク小サイハンイデカンガエルトソウデハナイ.",
 		"FDTDヲツカウコトデ、コノモンダイハトケマス.",
 		"ソレハフクザツデアルトハイエナイ",
 		"ソレハナニニテイルトオモイマスカ？",
 		"シリョウハマダキテイナイ",
+		"ワタシノTAハカレーガダイスキデス",
+		"...スイマセンカナダニイッテマシタ"
 	];
 	
 	var num = getRandomInt(0, sentence.length - 1);
