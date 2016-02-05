@@ -22,3 +22,10 @@ module.exports = (robot) ->
 
   robot.hear /煽り|あおり/, (msg) ->
     msg.send msg.random aori_img
+
+  robot.hear /(\s*|\S*\s*)like(\s*)(\S+)/i, (msg) ->
+    name = msg.match[1].trim()  #空白の削除
+    thing = msg.match[3]
+    if name == ''
+      name = 'あかり'
+    msg.send 'わぁい' + thing + ' ' + name + thing + '大好き'
