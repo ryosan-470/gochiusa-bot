@@ -6,6 +6,12 @@
 #    :c2e / man - 入力文字から :*-man: あるいは :*-num: という形の文字列を返す
 #    :煽り|あおり - 煽り画像から適当に返す
 #     From http://matome.naver.jp/odai/2141429957064254801
+#
+#    :hoge like fuga - 'わぁいfuga hogefuga大好き'と返す
+#    :like fuga - 'わぁいfuga あかりfuga大好き'と返す
+#
+#    :say ho hoge - ':youtherock:＜ ドウナンダhogeトシテー！Yeah！'と返す
+#
 aori_img = require './data/aori.json'
 
 module.exports = (robot) ->
@@ -29,3 +35,7 @@ module.exports = (robot) ->
     if name == ''
       name = 'あかり'
     msg.send 'わぁい' + thing + ' ' + name + thing + '大好き'
+
+  robot.hear /say(\s*)ho(\s*)(\S+)/i, (msg) ->
+    thing = msg.match[3]
+    msg.send ':youtherock:＜ ドウナンダ' + thing + 'トシテー！Yeah！'
