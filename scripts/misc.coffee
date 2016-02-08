@@ -12,6 +12,14 @@
 #
 #    :say ho hoge - ':youtherock:＜ ドウナンダhogeトシテー！Yeah！'と返す
 #
+#    :say 114514 - 乱数で'114514'という数列が現れるかどうか。
+#                  40回以内に出せたら回数を出力。失敗したら終了
+
+
+#乱数の生成メソッド
+getRandomInt = (min, max) ->
+  Math.floor(Math.random() * (max - min + 1)) + min
+
 aori_img = require './data/aori.json'
 
 module.exports = (robot) ->
@@ -39,3 +47,26 @@ module.exports = (robot) ->
   robot.hear /say(\s*)ho(\s*)(\S+)/i, (msg) ->
     thing = msg.match[3]
     msg.send ':youtherock:＜ ドウナンダ' + thing + 'トシテー！Yeah！'
+
+
+  robot.hear /say(\s*)114514/i, (msg) ->
+    count = 0
+    record = ''
+    koiyo = -1
+    selectList = [11,45,14]
+    while count < 40
+      count++
+      tmp = selectList[getRandomInt(0, 2)]
+      record += String(tmp)
+      if koiyo == -1 and tmp == 11
+        koiyo = 1
+      else if koiyo == 1 and tmp == 45
+        koiyo = 2
+      else if koiyo == 2 and tmp == 14
+        koiyo = 3
+        return msg.send(record + '!\n' + count + '回目でチャレンジ成功!\n:yaju: ＜やったぜ。')
+      else
+        koiyo = -1
+    msg.send record + '!\nチャレンジ失敗\n:yaju: ＜ｻﾞﾝﾈﾝ'
+          
+           
