@@ -21,6 +21,7 @@ getRandomInt = (min, max) ->
   Math.floor(Math.random() * (max - min + 1)) + min
 
 aori_img = require './data/aori.json'
+mana_img = require './data/5mana_matome.json'
 
 module.exports = (robot) ->
   robot.hear /c2e ([A-Za-z\d ]+$)/, (msg) ->  # 大文字小文字のアルファベット，数字を受理
@@ -73,3 +74,7 @@ module.exports = (robot) ->
       else
         koiyo = -1
     msg.send record + '!\nチャレンジ失敗\n:yaju: ＜ｻﾞﾝﾈﾝ'
+
+  robot.hear /5mana/, (msg) ->
+    msg.send msg.random mana_img
+
