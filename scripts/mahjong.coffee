@@ -2,8 +2,8 @@
 #  麻雀
 #
 # Commands:
-#    :mahjong / 麻雀  という言葉に反応して役を返します.
-#    :%d翻%d符 /  という言葉で得点計算をします
+#    :mahjong / 麻雀   という言葉に反応して役を返します.
+#    :%d飜%d符( %d本場) という言葉で得点計算をします
 #
 # Documentation:
 #  麻雀の役を登録するルールとして雀頭が予め登録してあり面子4つと組み合わせて出力することにします.
@@ -232,7 +232,7 @@ module.exports = (robot) ->
              """
 
 
-  robot.hear /(\d+)(翻|飜)(\d+)符/, (msg) ->
+  robot.hear /(\d+)(翻|飜)(\d+)符( \d+本場)?/, (msg) ->
 
     # 10の位を切り上げ
     carry10 = (num) ->
@@ -244,24 +244,27 @@ module.exports = (robot) ->
 
     han = parseInt(msg.match[1], 10)
     hu = parseInt(msg.match[3], 10)
+    homba = parseInt(msg.match[4], 10)
+    if isNaN(homba)
+      homba = 0
     if (hu <= 10 and 110 < hu) or (han == 1 and hu <= 20) or han < 1
       msg.send "404 Not Found"
       return
 
     hu = carry1(hu) if hu != 25
     parent_ron = 0
-    parent_tumo = 0
+    parent_tsumo = 0
     children_ron = 0
-    children_tumo4parent = 0
-    children_tumo4children = 0
+    children_tsumo4parent = 0
+    children_tsumo4children = 0
 
     if 1 <= han <= 4
       basic_point = hu * (2 ** (han + 2))
       if basic_point > 2000 then basic_point = 2000
-      children_tumo4children = carry10(basic_point * 1)
-      children_tumo4parent = carry10(basic_point * 2)
+      children_tsumo4children = carry10(basic_point * 1)
+      children_tsumo4parent = carry10(basic_point * 2)
       children_ron = carry10(basic_point * 4)
-      parent_tumo  = carry10(basic_point * 2)
+      parent_tsumo  = carry10(basic_point * 2)
       parent_ron = carry10(basic_point * 6)
     else if 5 <= han
       switch han
@@ -272,18 +275,18 @@ module.exports = (robot) ->
         when 13 then children_ron = 32000
         else children_ron = 32000
 
-      children_tumo4parent = children_ron / 2
-      children_tumo4children = children_ron / 4
+      children_tsumo4parent = children_ron / 2
+      children_tsumo4children = children_ron / 4
       parent_ron = children_ron * 1.5
-      parent_tumo = parent_ron / 3
+      parent_tsumo = parent_ron / 3
 
-    parent_ron = parent_ron.toString()
-    parent_tumo = parent_tumo.toString()
-    children_ron = children_ron.toString()
-    children_tumo4parent = children_tumo4parent.toString()
-    children_tumo4children = children_tumo4children.toString()
+    parent_ron = (parent_ron + homba * 300).toString()
+    parent_tsumo = (parent_tsumo + homba * 100).toString()
+    children_ron = (children_ron + homba * 300).toString()
+    children_tsumo4parent = (children_tsumo4parent + homba * 100).toString()
+    children_tsumo4children = (children_tsumo4children + homba * 100).toString()
     msg.send """ロン：親は #{parent_ron}点 です
                       子は #{children_ron}点 です
-                ツモ：親は #{parent_tumo}点 オールです
-                      子は (#{parent_tumo}点, #{children_tumo4children}点) です
+                ツモ：親は #{parent_tsumo}点 オールです
+                      子は (#{parent_tsumo}点, #{children_tsumo4children}点) です
              """
