@@ -13,7 +13,7 @@
 #    :say ho hoge - ':youtherock:＜ ドウナンダhogeトシテー！Yeah！'と返す
 #
 #    :say 114514 - 乱数で'114514'という数列が現れるかどうか。
-#                  40回以内に出せたら回数を出力。失敗したら終了
+#                  500回以内に出せたら回数を出力。失敗したら終了
 
 
 #乱数の生成メソッド
@@ -53,20 +53,23 @@ module.exports = (robot) ->
     count = 0
     record = ''
     koiyo = -1
-    selectList = [11,45,14]
-    while count < 40
+    selectList = [1,4,5]
+    while count < 500
       count++
       tmp = selectList[getRandomInt(0, 2)]
       record += String(tmp)
-      if koiyo == -1 and tmp == 11
+      if koiyo == -1 and tmp == 1
         koiyo = 1
-      else if koiyo == 1 and tmp == 45
+      else if koiyo == 1 and tmp == 1
         koiyo = 2
-      else if koiyo == 2 and tmp == 14
+      else if koiyo == 2 and tmp == 4
         koiyo = 3
+      else if koiyo == 3 and tmp == 5
+        koiyo = 4
+      else if koiyo == 4 and tmp == 1
+        koiyo = 5
+      else if koiyo == 5 and tmp == 4
         return msg.send(record + '!\n' + count + '回目でチャレンジ成功!\n:yaju: ＜やったぜ。')
       else
         koiyo = -1
     msg.send record + '!\nチャレンジ失敗\n:yaju: ＜ｻﾞﾝﾈﾝ'
-          
-           
