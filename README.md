@@ -18,7 +18,8 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
     * `3翻30符`とかで点数を返します. (Thanks to [@dorapon2000](https://github.com/dorapon2000))
     * 麻雀役出力機能 (Thanks to [@index30](https://github.com/index30), [@sga0221](https://github.com/sga0221), [@ksepynoin](https://github.com/ksepynoin))
 * ごちうさ言語の利用 (詳細は`glang help`を参考のこと)
-
+* マジカルシルクハットゲーム機能
+    * 遊戯王の「マジカルシルクハット」を元にしたゲーム機能です.マジカルシルクハットに隠れた「ブラック・マジシャン」を当てれば勝ち.
 ## How to contribute
 
 1. [Fork](https://github.com/jtwp470/gochiusa-bot/fork) this repository.
@@ -43,7 +44,8 @@ I don't accept when your code is not passed the lint tests and running coffee.
 * @index30, @sga0221, @ksepynoin
     * [麻雀役を出力する機能の追加](https://github.com/jtwp470/gochiusa-bot/issues/14)
     * [麻雀役を出力する機能のソースコード改善](https://github.com/jtwp470/gochiusa-bot/issues/21)
-
+* @sga0221
+    * [マジカルシルクハットゲーム機能の追加](https://github.com/jtwp470/gochiusa-bot/pull/62)
 
 ## License
 The MIT License (MIT)
