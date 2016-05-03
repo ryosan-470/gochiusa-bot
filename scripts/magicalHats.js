@@ -79,7 +79,7 @@ var cardList =
 				env.point--; //攻撃権を一つ消費
 				ans3 = printLifePoint(env.point);
 				
-			}else if(env.list[num - 1].num == 7){ //魔法の筒による敗北処理
+			}else if(env.list[num - 1].num == 2){ //魔法の筒による敗北処理
 				ans2 ="遊戯「罠カード発動！『魔法の筒』！」";
 				ans3 = "海馬「うおおおおお！」\n" +
 					"杏子「次回、『海馬 死す』 デュエルスタンバイ！」";
