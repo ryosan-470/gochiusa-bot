@@ -12,16 +12,15 @@
 
 //robot.brainのkey
 var BRAIN_KEY = "magicalHats"; 
-//カードの名前
+//カードの名前（sukaは空を意味します)
 var cardList =
-	    [":bramagi:",
-	     ":rokubou:",
-	     ":honouno",
-	     ":bigshield:",
-	     ":bragirl:",
-	     ":kuribo:",
-	     ":gazeru:",
-	     ":magiccylinder:"];
+	    [":bramazi:",
+	     ":rokubousei:",
+	     ":magiccylinder:",
+	     ":suka:",
+	     ":suka:",
+	     ":suka:",
+	     ":suka:"];
 
 
 (function(){
@@ -51,56 +50,58 @@ var cardList =
 		});
 		
 		//magical choice
-		robot.hear(/magical(\s*)([1-4])/i,function(msg){
+		robot.hear(/magical(\s*)(\d+)/i,function(msg){
 			var num = msg.match[2];
 			var env = robot.brain.get(BRAIN_KEY);
 			if(env == null){
 				return msg.send("Please \"start magical\".");
-			}else{
-				env.point--; //攻撃権を一つ消費
-				env.list[num - 1].isOpen = true; //指定のカードをOpen
-				
-				var ans1 = "海馬「滅びの爆裂疾風弾！」";
-				var ans2;
-				var strMagical;
-				var ans3;
-				if(env.list[num - 1].isCorrect){ //ブラック・マジシャンを当てた場合の処理（勝利処理）	
-					ans2 = "遊戯「うわあああああ！」";
-					strMagical = env.list[0].name + " " + env.list[1].name + " " + env.list[2].name + " " + env.list[3].name;
-					ans3 = "杏子「次回、『城之内 死す』 デュエルスタンバイ！」";
-					robot.brain.set(BRAIN_KEY, null); //終了処理
-					return msg.send(ans1 + "\n" + ans2 + "\n" + strMagical + "\n" + ans3);
-					
-				}else if(env.list[num - 1].num == 1) { //六芒星の呪縛処理
-					ans2 ="遊戯「罠カード発動！『六芒星の呪縛』！」";
-					strMagical = printMagicalHuts(env.list);
-					env.point--; //攻撃権を一つ消費
-					ans3 = printLifePoint(env.point);
-
-				}else if(env.list[num - 1].num == 7){ //魔法の筒による敗北処理
-					ans2 ="遊戯「罠カード発動！『魔法の筒』！」";
-					strMagical = printMagicalHuts(env.list);
-					ans3 = "海馬「うわあああああ！」\n" +
-						"杏子「次回、『城之内 死す』 デュエルスタンバイ！」";
-					robot.brain.set(BRAIN_KEY, null); //終了処理
-					return msg.send(ans1 + "\n" + ans2 + "\n" + strMagical + "\n" + ans3);
-					
-				}else{ //その他
-					ans2 = "遊戯「はずれ。」";
-					strMagical = printMagicalHuts(env.list);
-					ans3 = printLifePoint(env.point);
-				}
-				
-				if(env.point <= 0){ //攻撃権がなくなった場合の処理（敗北処理）
-					
-					ans3 = "海馬「くっ... ターンエンドだ」\n" + 
-						"遊戯「いくぜ、俺のターン！ブラックマジック！」\n"
-						+"杏子「次回、『城之内 死す』 デュエルスタンバイ！」";
-					robot.brain.set(BRAIN_KEY, null); //終了処理
-				}
-
-				return msg.send(ans1 + "\n" + ans2 + "\n" + strMagical + "\n" + ans3);
 			}
+			if(num < 1 || num > 4){
+				return msg.send("Please \"magical [1-4]\".");
+			}
+
+			env.point--; //攻撃権を一つ消費
+			env.list[num - 1].isOpen = true; //指定のカードをOpen
+			
+			var ans1 = "海馬「滅びの爆裂疾風弾！」";
+			var ans2;
+			var strMagical = printMagicalHuts(env.list);
+			var ans3;
+			
+			if(env.list[num - 1].isCorrect){ //ブラック・マジシャンを当てた場合の処理（勝利処理）	
+				ans2 = "遊戯「うわあああああ！」";
+				ans3 = "杏子「次回、『遊戯 死す』 デュエルスタンバイ！」";
+				robot.brain.set(BRAIN_KEY, null); //終了処理
+				return msg.send(ans1 + "\n" + strMagical + "\n" + ans2 + "\n" + ans3);
+				
+			}else if(env.list[num - 1].num == 1) { //六芒星の呪縛処理
+				ans2 ="遊戯「罠カード発動！『六芒星の呪縛』！攻撃を封じると同時に、攻撃力を700下げる！」";
+				env.point--; //攻撃権を一つ消費
+				ans3 = printLifePoint(env.point);
+				
+			}else if(env.list[num - 1].num == 7){ //魔法の筒による敗北処理
+				ans2 ="遊戯「罠カード発動！『魔法の筒』！」";
+				ans3 = "海馬「うおおおおお！」\n" +
+					"杏子「次回、『海馬 死す』 デュエルスタンバイ！」";
+				robot.brain.set(BRAIN_KEY, null); //終了処理
+				return msg.send(ans1 + "\n"  + strMagical + "\n" + ans2 + "\n"  + ans3);
+				
+			}else{ //その他（sukaのみ?)
+				ans2 = "遊戯「ﾌｯ...」\n" +
+					"海馬「外したか...」";
+				ans3 = printLifePoint(env.point);
+			}
+			
+			if(env.point <= 0){ //攻撃権がなくなった場合の処理（敗北処理）
+				ans3 = "海馬「くっ... ターンエンドだ」\n" + 
+					"遊戯「いくぜ、俺のターン！ブラックマジック！」\n" +
+					"海馬「うおおおおお！」\n" +
+					"杏子「次回、『海馬 死す』 デュエルスタンバイ！」";
+				robot.brain.set(BRAIN_KEY, null); //終了処理
+			}
+			
+			return msg.send(ans1 + "\n" + ans2 + "\n" + strMagical + "\n" + ans3);
+			
 		});
 	};
 	
@@ -119,10 +120,9 @@ function magicalHut(cardNum,isCorrect){
 	this.isOpen = false;
 }
 
-
 //ライフポイント表示の生成メソッド
 function printLifePoint(point){
-	var ans = "";
+	var ans = "攻撃できるブルーアイズ： ";
 	for(var i = 0; i < point; i++)
 		ans += ":blueeyes:";
 	return ans;
@@ -143,10 +143,10 @@ function printMagicalHuts(magiList){
 //マジカルシルクハットの生成
 function setMagicalList(){
 	var magicalList = [null,null,null,null]; //magicalListの生成
-	var numTrue = getRandomInt(0,3); //当たりカードの場所
+	var trueIndex = getRandomInt(0,3); //当たりカードの場所
 
 	for(var i = 0; i < magicalList.length; i++){
-		if(i == numTrue)
+		if(i == trueIndex)
 			magicalList[i] = new magicalHut(0, true);
 		else
 			magicalList[i] = new magicalHut(getRandomInt(1,cardList.length-1), false);						  
