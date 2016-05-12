@@ -9,5 +9,6 @@
   "hubot-rules",
   "hubot-shipit",
   "hubot-youtube",
-  "hubot-misawa"
+  "hubot-misawa",
+  "hubot-slack-attachment"
 ]

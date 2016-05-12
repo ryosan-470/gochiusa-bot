@@ -46,4 +46,4 @@ $ python3 naver_scraping.py --url http://matome.naver.jp/odai/213901106239737250
 MIT License
 
 # bf2gochiusa_lang.py
-brainf*ckのコードをごちうさ言語に変換するためのスクリプト.ただ置換しているだけなのでネット上にある適当なBrainf*ckのソースコードをこのスクリプトに投げて変換した結果をBOTに投げれば(きちんと動くコードであれば)出力結果を返す.
+brainfuckのコードをごちうさ言語に変換するためのスクリプト.ただ置換しているだけなのでネット上にある適当なBrainfuckのソースコードをこのスクリプトに投げて変換した結果をBOTに投げれば(きちんと動くコードであれば)出力結果を返す.
