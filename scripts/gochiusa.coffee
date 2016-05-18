@@ -9,7 +9,15 @@ gochiusa_img = require './data/gochiusa_matome.json'
 
 module.exports = (robot) ->
   robot.hear /ごちうさ/, (msg) ->
-    msg.send msg.random gochiusa_img
+    url = msg.random gochiusa_img
+    robot.emit 'slack.attachment',
+    message: msg.message
+    content: [
+      fallback: "ごちうさ"
+      title: "ごちうさ"
+      title_link: url
+      image_url: url
+    ]
 
   robot.hear /こころ/, (msg) ->
     msg.send "こころぴょんぴょん"
