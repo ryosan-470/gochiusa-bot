@@ -12,19 +12,22 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 ## Feature
 
 * ごちうさというフレーズに反応してアニメ画像をランダムで吐きます.
-  ![ごちうさというフレーズに反応する](./assets/gochiusa.png)
+	![ごちうさというフレーズに反応する](./assets/gochiusa.png)
 * chino / @chino でチノちゃんがランダムでつぶやきます.
-  ![chinoとつぶやく](./assets/chino.png)
+	![chinoとつぶやく](./assets/chino.png)
 * `$`で囲まれた部分をLaTeXと認識して数式を画像化したものを返します.
-  ![LaTeX画像化](./assets/latex.png)
+	![LaTeX画像化](./assets/latex.png)
 * 麻雀点数計算機能
     * `3翻30符`とかで点数を返します. (Thanks to [@dorapon2000](https://github.com/dorapon2000))
-      ![点数表示](./assets/mahjong-calc.png)
+	  ![点数表示](./assets/mahjong-calc.png)
     * 麻雀役出力機能 (Thanks to [@index30](https://github.com/index30), [@sga0221](https://github.com/sga0221), [@ksepynoin](https://github.com/ksepynoin))
       ![麻雀役出力機能](./assets/mahjong.png)
 * ごちうさ言語の利用 (詳細は`glang help`を参考のこと)
 * マジカルシルクハットゲーム機能
     * 遊戯王の「マジカルシルクハット」を元にしたゲーム機能です.マジカルシルクハットに隠れた「ブラック・マジシャン」を当てれば勝ち.
+* 575通知機能
+	* 発言した文章が575だった場合にadd-reactionしてくれる機能
+	  ![575の文章にadd-reactionする](./assets/goshichigo.png)
 
 ## How to contribute
 
