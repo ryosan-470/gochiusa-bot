@@ -43,16 +43,22 @@ function is575(sentence){
 			var word = sentence[i][j];
 			if(word[2] == "＄")  //読めない文字は無視
 				continue;
-
+			if(word[2] == "ァ" || word[2] == "ィ" || word[2] == "ゥ" || word[2] == "ェ" || word[2] == "ォ" || word[2] == "ャ" || word[2] == "ュ" || word[2] == "ョ" || word[2] == "ッ") //小文字のみは無視
+				continue;
+			
+			
 			//575達成後に読める文字が存在してしまう場合
 			if(now_watch > 2)
 				return false;
 			
 			var is_joshi = (word[1].indexOf("助") != -1); //助詞の判定
 			var is_hanteishi = (word[1].indexOf("判") != -1); //判定詞の判定
+			var is_setsubiji = (word[1].indexOf("接尾") != -1); //接尾辞の判定
+			var is_katsuyougobi = (word[1].indexOf("語尾") != -1);//活用語尾の判定
+
 
 			//575の最初が助詞、判定詞になってしまう場合、falseを返す
-			if((is_joshi || is_hanteishi) && count[now_watch] == 0)
+			if((is_joshi || is_hanteishi || is_setsubiji || is_katsuyougobi) && count[now_watch] == 0)
 				return false;
 			
 			var wordReading = word[2].replace(/ャ|ュ|ョ|ァ|ィ|ゥ|ェ|ォ/g, ""); //小さい文字の削除
@@ -80,6 +86,7 @@ add-reactionするメソッド
 HubotでSlackのEmoji Reactionを付ける
 http://qiita.com/hiconyan/items/f2c37a10ac2c581693ce
 */
+
 var request = require('request');
 
 var addReactions = function(msg, name){
