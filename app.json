@@ -1,6 +1,26 @@
 {
     "name": "gochiusa-bot",
+    "description": "'Is the order a rabbit?' BOT",
+    "repository": "https://github.com/jtwp470/gochiusa-bot",
     "env": {
-        "BUILDPACK_URL": "https://github.com/jtwp470/gochiusa-bot"
-    }
+        "HUBOT_SLACK_TOKEN": {
+            "description": "The adapter for slack and your deploying server"
+        },
+        "TZ": {
+            "description": "The timezone defaults Tokyo, Japan",
+            "value": "Asia/Tokyo"
+        },
+        "GOO_APP_ID": {
+            "description": "The GOO api key uses cole.js. If you want, please refer to https://labs.goo.ne.jp/",
+            "required": false
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/nodejs"
+        }
+    ],
+    "addons": [
+        "rediscloud"
+    ]
 }
