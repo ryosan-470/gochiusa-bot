@@ -13,8 +13,7 @@ module.exports = (robot) ->
     robot.emit 'slack.attachment',
     message: msg.message
     content: [
-      fallback: "ごちうさ"
-      title: "ごちうさ"
+      title: "ご注文はうさぎですか?"
       title_link: url
       image_url: url
     ]
