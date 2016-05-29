@@ -23,6 +23,7 @@
     "hubot-youtube": "^0.1.2",
     "mktemp": "^0.4.0",
     "opentype.js": "^0.6.3",
+    "path": "^0.12.7",
     "request": "^2.72.0"
   },
   "engines": {

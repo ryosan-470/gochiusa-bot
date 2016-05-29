@@ -3,4 +3,4 @@ node_modules
 .hubot_history
 test.json
 
-scripts/gj.coffee
+tmp

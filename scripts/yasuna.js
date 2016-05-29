@@ -1,7 +1,20 @@
+// Description:
+//   木の下に埋めてもらってもジェネレーターです。
+//   「見たら本当に絶対hogehogeするよ！
+//     もしhogehogeしなかったら木の下に埋めてもらっても構わないよ」
+//
+//   〜例1〜
+//   hubot > yasuna 感動
+//   hubot > 画像URL
+//
+// Commands:
+//   yasuna 単語 - 画像URL
+
 var fs = require('fs'); //ファイル読み書きライブラリ
 var Canvas = require('canvas'); //node-canvas
 var http = require('http'); //httpリクエスト
-
+var path = require('path');
+var mktemp = require('mktemp'); //mktemp
 
 var Image = Canvas.Image;
 var img = new Image;
@@ -11,7 +24,8 @@ var canvas;
 	module.exports=function(robot){	    
 		//入力された文章の取得
 		return robot.hear(/yasuna(\s)(\S.*)/i,function(msg){
-			var word = msg.match[1]; 
+			var word = msg.match[2]; 
+
 			//画像の生成
 			fs.readFile(path.join(__dirname, 'data/yasuna.png'), function(err, data){ //ファイルの読み込み
 				if(err) throw err;
@@ -60,12 +74,36 @@ var canvas;
 				var y23 = y22;
 				tategaki(ctx, text23, x23, y23, fontsize2);
 
+
+				//pathの設定
+				var temppath = path.join(__dirname, '..', 'tmp'); //保存先./tmpのpath
+				var url = process.env.HEROKU_URL;
+				if (url === undefined) {
+					url = 'http://localhost:8080'; //画像表示先のURL
+				}
+				
+				//保存先のディレクトリの有無の確認
+				try {
+					fs.statSync(temppath);
+				} catch (e) {
+					console.log(e);
+					fs.mkdirSync(temppath, 0700);
+				}
+				
 				//画像の保存
-				var out, stream;
-				out = fs.createWriteStream(__dirname + '../tmp/tmpYasuna.png');
-				stream = canvas.pngStream();
-				stream.on('data', function(chunk) {
-					out.write(chunk);
+				mktemp.createFile(path.join(temppath,'XXXXXXXX.png'), function(err, filename) {
+					var out = fs.createWriteStream(filename);
+					var stream = canvas.pngStream();
+					
+					out.on('close', function() {
+						msg.send(url + "/hubot/viewyasuna.png?id=" + path.basename(filename));
+					});
+					stream.on('data', function(chunk) {
+						out.write(chunk);
+					});
+					stream.on('end', function(chunk) {
+						out.end();
+					});
 				});	 
 			});
 		});
@@ -80,11 +118,13 @@ var tategaki = function(context, text, x, y, fontsize) {
 	var lineHeight = fontsize;
 	textList.forEach(function(elm, i) {
 		Array.prototype.forEach.call(elm, function(ch, j) {
-			context.font = 'bold' + fontsize + 'px sans-serif';
+			context.font = 'bold' + fontsize + 'px "sans-serif"';
+			var metrics = context.measureText(ch).width; //横幅
+			
 			if(ch == "っ")
-				context.fillText(ch, x - lineHeight * i, y + lineHeight * (j - 1) + 5 * lineHeight / 6);
+				context.fillText(ch, x - metrics / 2 , y + lineHeight * (j - 1) + 5 * lineHeight / 6);
 			else
-				context.fillText(ch, x - lineHeight * i, y + lineHeight * j);
+				context.fillText(ch, x - metrics / 2 , y + lineHeight * j);
 		});
 	});
 };
