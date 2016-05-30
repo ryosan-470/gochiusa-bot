@@ -21,7 +21,10 @@ var img = new Image;
 var canvas;
 
 (function(){
-	module.exports=function(robot){	    
+	module.exports=function(robot){
+        var MyUtil = require("./myutil")
+        var util = new MyUtil(robot)
+
 		//入力された文章の取得
 		return robot.hear(/yasuna(\s)(\S.*)/i,function(msg){
 			var word = msg.match[2]; 
@@ -96,7 +99,8 @@ var canvas;
 					var stream = canvas.pngStream();
 					
 					out.on('close', function() {
-						msg.send(url + "/hubot/viewyasuna.png?id=" + path.basename(filename));
+                        var send_url = url + "/hubot/viewyasuna.png?id=" + path.basename(filename);
+                        util.richImageView(msg, "折部やすなー", send_url);
 					});
 					stream.on('data', function(chunk) {
 						out.write(chunk);

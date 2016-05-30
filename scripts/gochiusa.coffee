@@ -8,15 +8,12 @@
 gochiusa_img = require './data/gochiusa_matome.json'
 
 module.exports = (robot) ->
+  MyUtil = require("./myutil")
+  util = new MyUtil(robot)
+
   robot.hear /ごちうさ/, (msg) ->
     url = msg.random gochiusa_img
-    robot.emit 'slack.attachment',
-    message: msg.message
-    content: [
-      title: "ご注文はうさぎですか?"
-      title_link: url
-      image_url: url
-    ]
+    util.richImageView msg, "ご注文はうさぎですか?", url
 
   robot.hear /こころ/, (msg) ->
     msg.send "こころぴょんぴょん"
