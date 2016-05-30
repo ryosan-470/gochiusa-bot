@@ -43,41 +43,78 @@ var canvas;
 				
 				// テキスト描画
 				var margin = 7; //行間
-				
+
 				//一つ目の吹き出し
-				var fontsize1 = 20;  //フォントの大きさ
+				var length = word.length; //文字数
+				var fontsize1 = 20; //デフォルトフォントサイズ
+				var text1 = [];//文章
+				var x1 = 315;
+				var y1 = 50;
 				
-				var text11 = "見たら本当に";
-				var x11 = 310;
-				var y11 = 50;
-				ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
-				tategaki(ctx, text11, x11, y11, fontsize1);
+				if(length <= 3){
+					text1 = ["見たら本当に",
+						"絶対" + word + "するよ！"];
+				}else if(3 < length && length <= 5){
+					text1 = ["見たら本当に絶対",
+						word + "するよ！"];
+				}else if (5 < length && length <= 8){
+					x1 = 325;
+					y1 = 55;
+					text1 = ["見たら本当に絶対",
+						 word,
+						 "するよ！"];
+					fontsize1 = 20;
+				}else{
+					x1 = 325;
+					y1 = 55;
+					text1 = ["見たら本当に絶対",
+						 word,
+						 "するよ！"];
+					fontsize1 = 20 * 8 / length;
+				}
 				
-				var text12 = "絶対" + word + "するよ！";
-				var x12 = x11 - (fontsize1 + margin);
-				var y12 = y11;
-				tategaki(ctx, text12, x12, y12, fontsize1);
+
+				for(var i = 0; i < text1.length; i++){
+					var x = x1 - (fontsize1 + margin) * i;
+					var y = y1;
+					ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+					tategaki(ctx, text1[i], x, y, fontsize1);
+				}
 				
 				
 				//二つ目の吹き出し
-				var fontsize2 = 16;  //フォントの大きさ
+				var fontsize2 = 16;  //デフォルトのフォントの大きさ
+				var text2 = [];
+				var x2 = 65;
+				var y2 = 40;
 				
-				var text21 = "もし" + word + "しなかったら";
-				var x21 = 65;
-				var y21 = 40;
-				tategaki(ctx, text21, x21, y21, fontsize2);
-				
-				var text22 = "木の下に埋めて貰っても";
-				var x22 = x21 - (fontsize2 + margin);
-				var y22 = y21;
-				tategaki(ctx, text22, x22, y22, fontsize2);
-				
-				var text23 = "構わないよ";
-				var x23 = x22 - (fontsize2 + margin);
-				var y23 = y22;
-				tategaki(ctx, text23, x23, y23, fontsize2);
+				if(length <= 3){
+					text2 = ["もし" + word + "しなかったら",
+						 "木の下に埋めてもらっても",
+						 "構わないよ"
+						];
+				}else if(3 < length  && length <= 10){
+					text2 = ["もし" + word ,
+						 "しなかったら木の下に",
+						 "埋めてもらっても構わないよ"
+						];
+					fontsize2 = 16 * 11 / 13; //16*11pxに13文字(3行目)が入るようにする
+					
+				}else if(10 < length){
+					text2 = ["もし" + word ,
+						 "しなかったら木の下に",
+						 "埋めてもらっても構わないよ"
+						];
+					fontsize2 = 16 * 11 / (length + 2); //16*11pxに(length+2)文字(1行目)が入るようにする
+				}
 
-
+				for(var i = 0; i < text2.length; i++){
+					var x = x2 - (fontsize2 + margin) * i;
+					var y = y2;
+					ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+					tategaki(ctx, text2[i], x, y, fontsize2);
+				}
+				 
 				//pathの設定
 				var temppath = path.join(__dirname, '..', 'tmp'); //保存先./tmpのpath
 				var url = process.env.HEROKU_URL;
@@ -99,8 +136,8 @@ var canvas;
 					var stream = canvas.pngStream();
 					
 					out.on('close', function() {
-                        var send_url = url + "/hubot/viewyasuna.png?id=" + path.basename(filename);
-                        util.richImageView(msg, "折部やすなー", send_url);
+						var send_url = url + "/hubot/viewyasuna.png?id=" + path.basename(filename);
+						util.richImageView(msg, "折部やすなー", send_url);
 					});
 					stream.on('data', function(chunk) {
 						out.write(chunk);
@@ -122,9 +159,8 @@ var tategaki = function(context, text, x, y, fontsize) {
 	var lineHeight = fontsize;
 	textList.forEach(function(elm, i) {
 		Array.prototype.forEach.call(elm, function(ch, j) {
-			context.font = 'bold' + fontsize + 'px "sans-serif"';
+			context.font = fontsize + 'px "sans-serif"';
 			var metrics = context.measureText(ch).width; //横幅
-			
 			if(ch == "っ")
 				context.fillText(ch, x - metrics / 2 , y + lineHeight * (j - 1) + 5 * lineHeight / 6);
 			else
