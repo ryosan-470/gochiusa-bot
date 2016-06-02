@@ -24,6 +24,9 @@ aori_img = require './data/aori.json'
 mana_img = require './data/5mana_matome.json'
 
 module.exports = (robot) ->
+  MyUtil = require("./myutil")
+  util = new MyUtil(robot)
+
   robot.hear /c2e ([A-Za-z\d ]+$)/, (msg) ->  # 大文字小文字のアルファベット，数字を受理
     result = ""
     for r in msg.match[1].toLowerCase()     # すべての文字を小文字に変換
@@ -36,7 +39,8 @@ module.exports = (robot) ->
     msg.send result
 
   robot.hear /煽り|あおり/, (msg) ->
-    msg.send msg.random aori_img
+    url = msg.random aori_img
+    util.richImageView msg, "煽り画像", url
 
   robot.hear /(\s*|\S*\s*)like(\s*)(\S+)/i, (msg) ->
     name = msg.match[1].trim()  #空白の削除
@@ -76,5 +80,6 @@ module.exports = (robot) ->
     msg.send record + '!\nチャレンジ失敗\n:yaju: ＜ｻﾞﾝﾈﾝ'
 
   robot.hear /5mana/, (msg) ->
-    msg.send msg.random mana_img
+    url = msg.random mana_img
+    util.richImageView msg, "5mana", url
 

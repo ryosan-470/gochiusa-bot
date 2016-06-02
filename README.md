@@ -28,6 +28,10 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 * 575通知機能
   * 発言した文章が575だった場合にadd-reactionしてくれる機能.  
   ![575の文章にadd-reactionする](./assets/goshichigo.png)
+* 折部やすな機能
+  * 「見たら本当に絶対○○するよ！」「もし○○しなかったら木の下に埋めてもらっても構わないよ」ジェネレーター機能.
+  
+  ![ジェネレーターの出力例](./assets/viewyasuna.png)
 
 ## How to contribute
 
