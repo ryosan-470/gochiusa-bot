@@ -7,8 +7,8 @@
 #    :煽り|あおり - 煽り画像から適当に返す
 #     From http://matome.naver.jp/odai/2141429957064254801
 #
-#    :hoge like fuga - 'わぁいfuga hogefuga大好き'と返す
-#    :like fuga - 'わぁいfuga あかりfuga大好き'と返す
+#    :hoge a-like fuga - 'わぁいfuga hogefuga大好き'と返す
+#    :a-like fuga - 'わぁいfuga あかりfuga大好き'と返す
 #
 #    :say ho hoge - ':youtherock:＜ ドウナンダhogeトシテー！Yeah！'と返す
 #
@@ -41,15 +41,15 @@ module.exports = (robot) ->
     url = msg.random aori_img
     util.richImageView msg, "煽り画像", url
 
-  robot.hear /(\s*|\S*\s*)like(\s*)(\S+)/i, (msg) ->
-    name = msg.match[1].trim()  #空白の削除
-    thing = msg.match[3]
+  robot.hear /(\s*|\S*\s)a-like (\S+)/i, (msg) ->
+    name = msg.match[1]
+    thing = msg.match[2]
     if name == ''
       name = 'あかり'
     msg.send 'わぁい' + thing + ' ' + name + thing + '大好き'
 
-  robot.hear /say(\s*)ho(\s*)(\S+)/i, (msg) ->
-    thing = msg.match[3]
+  robot.hear /say ho (\S+)/i, (msg) ->
+    thing = msg.match[1]
     msg.send ':youtherock:＜ ドウナンダ' + thing + 'トシテー！Yeah！'
 
 
