@@ -1,4 +1,11 @@
 {
     "extends": "google",
-    "installedESLint": true
+    "installedESLint": true,
+    "rules": {
+        "no-unused-vars": ["error", {"vars": "all", "args": "none" }],
+        "quote-props": ["error", "always"],
+        "valid-jsdoc": "off",
+        "guard-for-in": "off",
+        "no-constant-condition": ["error", { "checkLoops": false }]
+    }
 }

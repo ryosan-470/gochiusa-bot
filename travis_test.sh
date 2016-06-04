@@ -24,12 +24,11 @@ echo ""
 echo "Javascript linter test"
 for f in $JAVASCRIPT_FILES; do
     cmd="eslint $f"
-    echo -e "$cmd"
-    $cmd >/dev/null
     if [ $? -ne 0 ]; then
         echo "Failed to lint $f"
-        exit 1
+        echo -e "$cmd"
+    else
+        echo "eslint $f # √"
     fi
-    echo " # √"
 done
 exit ${return_val}
