@@ -26,11 +26,12 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 * マジカルシルクハットゲーム機能
   * 遊戯王の「マジカルシルクハット」を元にしたゲーム機能.マジカルシルクハットに隠れた「ブラック・マジシャン」を当てれば勝ち.
 * 575通知機能
-  * 発言した文章が575だった場合にadd-reactionしてくれる機能.  
+  * 発言した文章が575だった場合にadd-reactionしてくれる機能.
+  
   ![575の文章にadd-reactionする](./assets/goshichigo.png)
 * 折部やすな機能
   * 「見たら本当に絶対○○するよ！」「もし○○しなかったら木の下に埋めてもらっても構わないよ」ジェネレーター機能.
-  
+
   ![ジェネレーターの出力例](./assets/viewyasuna.png)
 
 ## How to contribute
@@ -47,8 +48,12 @@ Please refer to the [wiki](https://github.com/jtwp470/gochiusa-bot/wiki) if you 
 
 自分の環境で文法チェックをするときは`coffeelint`や`npm test`などを使ってみてください.
 
-Please check your code using `coffeelint` or `npm test` if you send me your pull request.
-I don't accept when your code is not passed the lint tests and running coffee.
+#### JavaScriptにも文法チェックを追加しました
+JavaScriptにも文法チェックを追加しました.
+チェックには[ESLint](http://eslint.org/)を使っています.
+これ以降, JavaScriptによるコードの追加にはこのテストに通過する必要があります.
+コーディングスタイルについては[Google JavaScript Style Guide](https://google.github.io/styleguide/javascriptguide.xml)を参考にしています.
+例外的なコーディングスタイルの許可については[.eslintrc.json](./.eslintrc.json)に書かれているのでそちらを参照してください.
 
 ## Contributors
 
@@ -59,6 +64,8 @@ I don't accept when your code is not passed the lint tests and running coffee.
     * [麻雀役を出力する機能のソースコード改善](https://github.com/jtwp470/gochiusa-bot/issues/21)
 * @sga0221
     * [マジカルシルクハットゲーム機能の追加](https://github.com/jtwp470/gochiusa-bot/pull/62)
+    * [575の文章にadd-reactionする](https://github.com/jtwp470/gochiusa-bot/pull/74)
+    * [折部やすなジェネレーター](https://github.com/jtwp470/gochiusa-bot/pull/77)
 
 ## License
 The MIT License (MIT)
