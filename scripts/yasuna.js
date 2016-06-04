@@ -130,7 +130,7 @@ var tategaki = function(context, text, x, y, fontsize) {
         }
 
         // pathの設定
-        var temppath = path.join(__dirname, '..', 'tmp'); // 保存先./tmpのpath
+        var temppath = path.join('/tmp'); // 保存先./tmpのpath
         var url = process.env.HEROKU_URL;
         if (url === undefined) {
           url = 'http:// localhost:8080'; // 画像表示先のURL
@@ -152,7 +152,7 @@ var tategaki = function(context, text, x, y, fontsize) {
             var stream = canvas.pngStream();
 
             out.on('close', function() {
-              var sendUrl = url + "/hubot/viewyasuna.png?id=" +
+              var sendUrl = url + "/yasuna/view?id=" +
                     path.basename(filename);
               util.richImageView(msg, "折部やすなー", sendUrl);
             });
