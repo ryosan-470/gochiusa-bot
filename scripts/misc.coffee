@@ -14,8 +14,7 @@
 #
 #    :say 114514 - 乱数で'114514'という数列が現れるかどうか。
 #                  500回以内に出せたら回数を出力。失敗したら終了
-
-
+#    :yasuna 感動 - 見たら本当に絶対「感動」するよ.もし「感動」しなかったら木下に埋めてもらっても構わないよ
 #乱数の生成メソッド
 getRandomInt = (min, max) ->
   Math.floor(Math.random() * (max - min + 1)) + min
@@ -83,3 +82,9 @@ module.exports = (robot) ->
     url = msg.random mana_img
     util.richImageView msg, "5mana", url
 
+  robot.hear /yasuna(\s)(\S.*)/i, (msg) ->
+    word = encodeURIComponent msg.match[2]
+    URL = process.env.HEROKU_URL
+    if URL == undefined
+      URL = "localhost:8080"
+    util.richImageView msg, "折部やすなー", "#{URL}/api/yasuna?word=#{word}"

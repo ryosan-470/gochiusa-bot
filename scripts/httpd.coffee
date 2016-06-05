@@ -8,12 +8,11 @@
 #   None
 #
 # URLS:
-#   /version
+#   /     TOP PAGE
+#   /api/yasuna  create yasuna
 swig = require('swig')
-querystring = require('querystring')
-fs = require('fs')
-path = require('path')
 TEMPLATE_DIR = "./scripts/template/"
+yasuna = require("./yasuna")
 
 fileExists = (filePath) ->
   try
@@ -27,12 +26,5 @@ module.exports = (robot) ->
     res.type "html"
     res.end swig.renderFile("#{TEMPLATE_DIR}/index.html", {})
 
-  robot.router.get "/yasuna/view", (req, res) ->
-    query = querystring.parse req._parsedUrl.query
-    tmp = path.join '/tmp', path.basename(query.id)
-    if fileExists(tmp)
-      fs.readFile tmp, (err, data) ->
-        res.writeHead(200, {'Content-Type': 'image/png'})
-        res.end(data)
-    else
-      res.status(404).send('Not Found')
+  robot.router.get "/api/yasuna", (req, res) ->
+    yasuna.init(req, res)
