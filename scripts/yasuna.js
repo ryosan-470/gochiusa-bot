@@ -14,11 +14,6 @@ var Canvas = require('canvas');
 var path = require('path');
 
 var Image = Canvas.Image;
-var Font = Canvas.Font;
-
-var fontFile = function(name) {
-  return path.join(__dirname, '/../.fonts/', name);
-};
 
 // 文字を縦書きするメソッド
 // http://tmlife.net/programming/javascript/html5-canvas-vertical-writing.html

@@ -21,7 +21,6 @@ var cardList =
        ":suka:",
        ":suka:"];
 
-
 (function() {
   module.exports = function(robot) {
     // magical start
@@ -38,8 +37,8 @@ var cardList =
       }
 
       var list = setMagicalList();
-      var point = getRandomInt(1,3);
-      var env = new magiEnv(list, point);
+      var point = getRandomInt(1, 3);
+      var env = new Magienv(list, point);
 
       robot.brain.set(BRAIN_KEY, env);
       robot.brain.save();
@@ -55,7 +54,7 @@ var cardList =
     robot.hear(/magical(\s*)(\d+)/i, function(msg) {
       var num = msg.match[2];
       var env = robot.brain.get(BRAIN_KEY);
-      if (env === null){
+      if (env === null) {
         return msg.send("Please \"start magical\".");
       }
       if (num < 1 || num > 4) {
@@ -79,7 +78,7 @@ var cardList =
         env.point--; // 攻撃権を一つ消費
         ans3 = printLifePoint(env.point);
       } else if (env.list[num - 1].num === 2) { // 魔法の筒による敗北処理
-        ans2 ="遊戯「罠カード発動！『魔法の筒』！」";
+        ans2 = "遊戯「罠カード発動！『魔法の筒』！」";
         ans3 = "海馬「うおおおおお！」\n" +
           "杏子「次回、『海馬 死す』 デュエルスタンバイ！」";
         robot.brain.set(BRAIN_KEY, null); // 終了処理
@@ -102,12 +101,13 @@ var cardList =
 }).call(this);
 
 // 環境を保存する構造体
-function magiEnv(magiList, lifePoint) {
+function Magienv(magiList, lifePoint) {
   this.list = magiList;
   this.point = lifePoint;
 }
+
 // マジカルシルクハットの構造体
-function magicalHut(cardNum, isCorrect) {
+function Magicalhut(cardNum, isCorrect) {
   this.num = cardNum;
   this.name = cardList[cardNum];
   this.isCorrect = isCorrect;
@@ -117,8 +117,9 @@ function magicalHut(cardNum, isCorrect) {
 // ライフポイント表示の生成メソッド
 function printLifePoint(point) {
   var ans = "攻撃できるブルーアイズ： ";
-  for(var i = 0; i < point; i++)
+  for (var i = 0; i < point; i++) {
     ans += ":blueeyes:";
+  }
   return ans;
 }
 
@@ -141,9 +142,9 @@ function setMagicalList() {
   var trueIndex = getRandomInt(0, 3); // 当たりカードの場所
   for (var i = 0; i < magicalList.length; i++) {
     if (i === trueIndex) {
-      magicalList[i] = new magicalHut(0, true);
+      magicalList[i] = new Magicalhut(0, true);
     } else {
-      magicalList[i] = new magicalHut(getRandomInt(1,cardList.length-1), false);
+      magicalList[i] = new Magicalhut(getRandomInt(1, cardList.length - 1), false);
     }
   }
   return magicalList;

@@ -10,23 +10,23 @@ if [ $? -ne 0 ]; then
 fi
 
 for f in $COFFEE_FILES ; do
-    cmd="coffee -c -p $f"
-    echo -en "$cmd"
-    $cmd >/dev/null
+    cmd=`coffee -c -p $f`
     if [ $? -ne 0 ]; then
         echo "Failed to compile $f"
+        echo $cmd
         exit 1
     fi
-    echo " # √"
+    echo "$f # √"
 done
 
 echo ""
 echo "Javascript linter test"
 for f in $JAVASCRIPT_FILES; do
-    cmd="eslint $f"
+    cmd=`eslint $f`
     if [ $? -ne 0 ]; then
         echo "Failed to lint $f"
         echo -e "$cmd"
+        return_val=1;
     else
         echo "eslint $f # √"
     fi
