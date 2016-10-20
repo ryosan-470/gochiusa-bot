@@ -46,11 +46,12 @@ module.exports = function(robot) {
     };
     var ansNum = Math.min(3, list.length);
     var index = [];
-    for (var i = 0; i < ansNum; i++) {
-      index.push(-1);
-    }
     var count = 0;
-    while (count < ansNum) {
+    while (index.length < ansNum) {
+      count++;
+      if (count > 100) {  // 100回試行しても決まらない場合
+        break;
+      }
       var num = randNum(list.length);
       // 昼営業判定
       if (lunchDinner === 0 && (!list[num].isLunch)) {
@@ -61,8 +62,7 @@ module.exports = function(robot) {
         continue;
       }
       if (index.indexOf(num) === -1) {
-        index[count] = num;
-        count++;
+        index.push(num);
       }
     }
     // 答えの生成
@@ -75,9 +75,15 @@ module.exports = function(robot) {
       ans1 = "メシ";
     }
     var ans2 = "";
-    for (var t = 0; t < ansNum; t++) {
+    for (var t = 0; t < index.length; t++) {
       ans2 += "「" + list[index[t]].storeName + "」";
     }
-    return msg.send(":cole: ＜" + ans1 + "ダガ、" + ans2 + "ガイイトオモイマス.");
+    var ans;
+    if (index.length === 0) {  // 店が見つからなかった場合
+      ans = ":cole: ＜" + ans1 + "ダガ、...スイマセンミツカリマセンデシタ.";
+    } else {
+      ans = ":cole: ＜" + ans1 + "ダガ、" + ans2 + "ガイイトオモイマス.";
+    }
+    return msg.send(ans);
   });
 };
