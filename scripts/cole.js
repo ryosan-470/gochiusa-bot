@@ -68,9 +68,7 @@ function jikukaiseki(sentence) {
       var isMeishi = tmp[1].indexOf("名詞"); // 名詞、固有名詞判定
       var isKana = tmp[1].indexOf("Kana"); // Kana（ただの仮名文字）の判定
       var isDoku = tmp[1].indexOf("独"); // 独立詞の判定
-
       var isAlphabet = (tmp[1] === "Alphabet" || tmp[1] === "Roman");// アルファベット(またはRoman)の判定
-
       if (tmp[2] === "＄") { // 読めない文字の場合
         joshi += " ";
       } else if (isJoshi !== -1 || isHanteishi !== -1 || isKana !== -1) { // 助詞または判定詞、仮名文字の場合
@@ -78,7 +76,6 @@ function jikukaiseki(sentence) {
       } else {  // それ以外
         // 最後に処理した文字が名詞または独立詞、アルファベットかどうか
         addDa = (isMeishi !== -1 || isDoku !== -1 || isAlphabet);
-
         // アルファベットの場合
         if (isAlphabet) {
           ans += joshi + tmp[0];
