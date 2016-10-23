@@ -4,19 +4,36 @@
             "storeName" : "百香亭",
             "category" : "Chinese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 10
         },
         {
             "storeName" : "えん弥",
             "category" : "Chinese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "笑飯店",
             "category" : "Chinese",
             "isLunch" : true,
-            "isDinner" :  true
+            "isDinner" :  true,
+            "weight" : 2
+        },
+        {
+            "storeName" : "北方園",
+            "category" : "Chinese",
+            "isLunch" : true,
+            "isDinner" :  true,
+            "weight" : 1
+        },
+        {
+            "storeName" : "上海軒",
+            "category" : "Chinese",
+            "isLunch" : true,
+            "isDinner" :  true,
+            "weight" : 1
         }
     ],
     
@@ -25,79 +42,92 @@
             "storeName" : "千香華味",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 3
         },
         {
             "storeName" : "松屋",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "クラレット",
             "category" : "Japanese",
             "isLunch" : false,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 3
         },
         {
             "storeName" : "めしや益さん",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "ジャンク亭",
             "category" : "Japanese",
             "isLunch" : false,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 7
         },
         {
             "storeName" : "夢屋",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 7
         },
         {
             "storeName" : ":ko::tora2:",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : false,
+            "weight" : 10
         },
         {
             "storeName" : "くい亭",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : ":uo::hachi:",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 18
         },
         {
             "storeName" : "スタ丼",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "RanRan",
             "category" : "Japanese",
             "isLunch" : false,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 5
         },
         {
             "storeName" : "しゃぶ葉",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 5
         },
         {
             "storeName" : ":ka::tsu::dai:",
             "category" : "Japanese",
             "isLunch" : true,
-            "isDinner" : true   
+            "isDinner" : true,
+            "weight" : 5
         }
     ],    
     "Ramen" :  [
@@ -105,127 +135,148 @@
             "storeName" : "清六家",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : ":gin:の:buta:",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 5
         },
         {
             "storeName" : "麺 the Tokyo",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "活龍",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "松辰",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 2
         },
         {
             "storeName" : "喜乃壺",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "イチカワ",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : false
+            "isDinner" : false,
+            "weight" : 1
         },
         {
             "storeName" : ":abu::tora:",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 20
         },
         {
             "storeName" : ":tori::dori:",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 4
         },
         {
             "storeName" : "豚八",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "七福軒",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "三水",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 4
         },
         {
             "storeName" :"はりけんラーメン",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 6
         },
         {
             "storeName" : "角ふじ",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "常勝軒",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "一休",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "蒼",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 2
         },
         {
             "storeName" : "武蒼",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "蒼輝",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 7
         },
         {
             "storeName" : "おび屋",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 4
         },
         {
             "storeName" : "喜元門",
             "category" : "Ramen",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 5
         }
     ],
     "Restaurant" : [
@@ -233,25 +284,57 @@
             "storeName" : "Big Boy",
             "category" : "Restaurant",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "サイゼリヤ",
             "category" : "Restaurant",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "シェーキーズ",
             "category" : "Restaurant",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 4
         },
         {
             "storeName" : ":g-man::i-man::r-man::l-man::i-man::e-man: :s-man::h-man::o-man::t-man:",
             "category" : "Restaurant",
             "isLunch" : true,
-            "isDinner" : false
+            "isDinner" : false,
+            "weight" : 8
+        },
+        {
+            "storeName" : "ウェストハウス",
+            "category" : "Restaurant",
+            "isLunch" : true,
+            "isDinner" : true,
+            "weight" : 1
+        },
+        {
+            "storeName" : "ガスト",
+            "category" : "Restaurant",
+            "isLunch" : true,
+            "isDinner" : true,
+            "weight" : 1
+        },
+        {
+            "storeName" : "ジョイフル",
+            "category" : "Restaurant",
+            "isLunch" : true,
+            "isDinner" : true,
+            "weight" : 1
+        },
+        {
+            "storeName" : "ココス",
+            "category" : "Restaurant",
+            "isLunch" : true,
+            "isDinner" : true,
+            "weight" : 1
         }
     ],
     "FastFood" : [
@@ -259,13 +342,43 @@
             "storeName" : "KFC",
             "category" : "FastFood",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
         },
         {
             "storeName" : "McDonald's",
             "category" : "FastFood",
             "isLunch" : true,
-            "isDinner" : true
+            "isDinner" : true,
+            "weight" : 1
+        },
+        {
+            "storeName" : "バーガーキング",
+            "category" : "FastFood",
+            "isLunch" : true,
+            "isDinner" : true,
+            "weight" : 2
+        },
+        {
+            "storeName" : "モスバーガー",
+            "category" : "FastFood",
+            "isLunch" : true,
+            "isDinner" : true,
+            "weight" : 1
+        },
+        {
+            "storeName" : "ロッテリア",
+            "category" : "FastFood",
+            "isLunch" : true,
+            "isDinner" : true,
+            "weight" : 1
+        },
+        {
+            "storeName" : "SUBWAY",
+            "category" : "FastFood",
+            "isLunch" : true,
+            "isDinner" : false,
+            "weight" : 1
         }
     ],
     "School" : [
@@ -273,19 +386,22 @@
             "storeName" : "NISHOKU",
             "category" : "School",
             "isLunch" : true,
-            "isDinner" : false
+            "isDinner" : false,
+            "weight" : 1
         },
         {
             "storeName" : "名店街",
             "category" : "School",
             "isLunch" : true,
-            "isDinner" : false
+            "isDinner" : false,
+            "weight" : 1
         },
         {
             "storeName" : "三食",
             "category" : "School",
             "isLunch" : true,
-            "isDinner" : false
+            "isDinner" : false,
+            "weight" : 1
         }            
     ]
 }

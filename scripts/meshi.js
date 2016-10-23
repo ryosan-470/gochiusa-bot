@@ -23,36 +23,64 @@ module.exports = function(robot) {
     }
     // カテゴリを絞る
     var list = [];
-    if (category.indexOf("定食") >= 0) {
+    if (category.indexOf("定食") !== -1 || category.indexOf("和食") !== -1 || category.indexOf("米") !== -1) {
       Array.prototype.push.apply(list, dict.Japanese);
-    } else if (category.indexOf("中華") >= 0) {
+    }
+    if (category.indexOf("中華") !== -1) {
       Array.prototype.push.apply(list, dict.Chinese);
-    } else if (category.indexOf("ラーメン") >= 0) {
+    }
+    if (category.indexOf("ラーメン") !== -1) {
       Array.prototype.push.apply(list, dict.Ramen);
-    } else if (category.indexOf("洋食") >= 0 || category.indexOf("ピザ") >= 0 || category.indexOf("レストラン") >= 0) {
+    }
+    if (category.indexOf("洋食") !== -1 || category.indexOf("ピザ") !== -1 || category.indexOf("レストラン") !== -1) {
       Array.prototype.push.apply(list, dict.Restaurant);
-    } else if (category.indexOf("ファストフード") >= 0) {
+    }
+    if (category.indexOf("ファストフード") !== -1) {
       Array.prototype.push.apply(list, dict.FastFood);
-    } else if (category.indexOf("学食") >= 0) {
+    }
+    if (category.indexOf("学食") !== -1) {
       Array.prototype.push.apply(list, dict.School);
-    } else {
+    }
+    // 何にも該当しなかった場合
+    if (list.length === 0) {
       for (var key in dict) {
         Array.prototype.push.apply(list, dict[key]);
       }
     }
+
+    // リストの重みの合計を求める
+    var weightSum = 0;
+    for (var t = 0; t < list.length; t++) {
+      weightSum += list[t].weight;
+    }
+
     // 乱数を生成する関数
     var randNum = function(i) {
       return Math.floor(Math.random() * i);
     };
-    var ansNum = Math.min(3, list.length);
-    var index = [];
+
+    var ansNum = Math.min(3, list.length); // 答えの数
+    var ansIndex = []; // 答えとなる要素のインデックス
     var count = 0;
-    while (index.length < ansNum) {
+
+    while (ansIndex.length < ansNum) { // 決められた数答えが決定するまで
       count++;
       if (count > 100) {  // 100回試行しても決まらない場合
         break;
       }
-      var num = randNum(list.length);
+
+      var rand = randNum(weightSum); // 乱数の生成
+      var tmpSum = 0; // 重みの累積分布
+      var num; // 乱数から選ばれた要素のインデックス
+      // 重みと乱数からどの要素が選ばれたか計算する
+      for (var listIndex = 0; listIndex < list.length; listIndex++) {
+        if (tmpSum <= rand && rand <= tmpSum + list[listIndex].weight) {
+          num = listIndex; // 決定
+          break;
+        }
+        tmpSum += list[listIndex].weight; // 累積
+      }
+
       // 昼営業判定
       if (lunchDinner === 0 && (!list[num].isLunch)) {
         continue;
@@ -61,11 +89,11 @@ module.exports = function(robot) {
       if (lunchDinner === 1 && (!list[num].isDinner)) {
         continue;
       }
-      if (index.indexOf(num) === -1) {
-        index.push(num);
+      if (ansIndex.indexOf(num) === -1) {
+        ansIndex.push(num);
       }
     }
-    // 答えの生成
+    // 答えの文の生成
     var ans1;
     if (lunchDinner === 0) {
       ans1 = "ヒルメシ";
@@ -75,11 +103,11 @@ module.exports = function(robot) {
       ans1 = "メシ";
     }
     var ans2 = "";
-    for (var t = 0; t < index.length; t++) {
-      ans2 += "「" + list[index[t]].storeName + "」";
+    for (var i1 = 0; i1 < ansIndex.length; i1++) {
+      ans2 += "「" + list[ansIndex[i1]].storeName + "」";
     }
     var ans;
-    if (index.length === 0) {  // 店が見つからなかった場合
+    if (ansIndex.length === 0) {  // 店が見つからなかった場合
       ans = ":cole: ＜" + ans1 + "ダガ、...スイマセンミツカリマセンデシタ.";
     } else {
       ans = ":cole: ＜" + ans1 + "ダガ、" + ans2 + "ガイイトオモイマス.";
