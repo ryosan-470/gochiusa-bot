@@ -1,7 +1,7 @@
 # gochiusa-bot
 
-[![Build Status](https://travis-ci.org/jtwp470/gochiusa-bot.svg)](https://travis-ci.org/jtwp470/gochiusa-bot)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://jtwp470.mit-license.org/)
+[![Travis](https://img.shields.io/travis/ryo-san470/gochiusa-bot.svg?style=flat-square)](https://travis-ci.org/ryo-san470/gochiusa-bot)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://jtwp470.mit-license.org/)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
@@ -36,11 +36,11 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 
 ## How to contribute
 
-1. [Fork](https://github.com/jtwp470/gochiusa-bot/fork) this repository.
-2. Check other pull request because we don't accept a redudant request.
-3. Push and submit your pull request. (Please submit your code to accept CI test.)
+1. 本リポジトリを[フォーク(Fork)](https://github.com/ryo-san470/gochiusa-bot/fork)してください．
+2. 重複するプルリクエストを作成しないために他のプルリクエストを確認しましょう．
+3. 自分のリポジトリにプッシュし，プルリクエストを作成して下さい．このときCIを通過するコードを提出して下さい．
 
-Please refer to the [wiki](https://github.com/jtwp470/gochiusa-bot/wiki) if you will send your pull request. (Japanese)
+[Wiki](https://github.com/ryo-san470/gochiusa-bot/wiki)を参照すると役に立つ頃があるかもしれません．
 
 ### :warning: CAUTION
 文法チェックを追加しました.CoffeeScriptが正しく書かれていないとエラーになります.(例えば2インデントのところを4インデントにしているなど)
@@ -70,7 +70,7 @@ JavaScriptにも文法チェックを追加しました.
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015 jtwp470
+Copyright (c) 2015 - 2017 jtwp470
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
