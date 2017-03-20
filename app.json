@@ -1,29 +1,32 @@
 {
-    "name": "gochiusa-bot",
-    "description": "'Is the order a rabbit?' BOT",
-    "repository": "https:\/\/github.com\/jtwp470\/gochiusa-bot",
-    "env": {
-        "HUBOT_SLACK_TOKEN": {
-            "description": "The adapter for slack and your deploying server"
-        },
-        "TZ": {
-            "description": "The timezone defaults Tokyo, Japan",
-            "value": "Asia\/Tokyo"
-        },
-        "GOO_APP_ID": {
-            "description": "The GOO api key uses cole.js. If you want, please refer to https:\/\/labs.goo.ne.jp\/",
-            "required": false
-        },
-        "HEROKU_URL": {
-            "description": "Your heroku domain. e.g: https:\/\/<your_app_name>.herokuapp.com"
-        }
+  "name": "gochiusa-bot",
+  "description": "'Is the order a rabbit?' BOT",
+  "repository": "https://github.com/ryo-san470/gochiusa-bot",
+  "env": {
+    "HUBOT_SLACK_TOKEN": {
+      "description": "The adapter for slack and your deploying server"
     },
-    "buildpacks": [
-        {
-            "url": "https:\/\/github.com\/ddollar\/heroku-buildpack-multi.git"
-        }
-    ],
-    "addons": [
-        "rediscloud"
-    ]
+    "TZ": {
+      "description": "The timezone defaults Tokyo, Japan",
+      "value": "Asia\/Tokyo"
+    },
+    "GOO_APP_ID": {
+      "description": "The GOO api key uses cole.js. If you want, please refer to https://labs.goo.ne.jp/",
+      "required": false
+    },
+    "HEROKU_URL": {
+      "description": "Your heroku domain. e.g: https://<your_app_name>.herokuapp.com"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/mojodna/heroku-buildpack-cairo.git"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "addons": [
+    "rediscloud"
+  ]
 }

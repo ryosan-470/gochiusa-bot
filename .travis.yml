@@ -1,3 +1,4 @@
+sudo: false
 language: node_js
 node_js:
     - "5"
@@ -23,7 +24,4 @@ deploy:
   api_key:
     secure: aSCy+1wGbLLWS0JxazizKmKk5zhMQuxRTvYtXCfa5rbyhWu2uuC73QG4kcTYEWy51tdp4Au0o0UfF51VJiD4C6XARPXWhbiMsqLv5yj2bJDsbQWJX6p5hvJXHG4yZxwY8J2NHFTH/psA1fp55lFw1CR0A5fp5gJIBJPXDzA2qm4=
   app: gochiusa-bot
-  on:
-    repo: jtwp470/gochiusa-bot
-
-sudo: false
+  on: production
