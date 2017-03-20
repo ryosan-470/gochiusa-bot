@@ -1,11 +1,11 @@
-sudo: false
+sudo: false  # Container Based
 language: node_js
 node_js:
-    - "5"
-    - "5.1"
-    - "4.2"
-    - "iojs"
+  - "7"
+  - "node"
 
+env:
+  - CXX=g++-4.8
 addons:
   apt:
     sources:
@@ -16,8 +16,12 @@ addons:
       - libpango1.0-dev
       - libgif-dev
       - g++-4.8
-env:
-  - CXX=g++-4.8
+
+install:
+  - npm install
+
+script:
+  - ./travis_test.sh
 
 deploy:
   provider: heroku
