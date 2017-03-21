@@ -26,7 +26,7 @@ module.exports = (robot) ->
     " はじめがかんじん   - ポインタが指す値が0なら対応する'つーんだつーんだ'までジャンプする\n" +
     " つーんだつーんだ   - ポインタが指す値が0でなければ対応する'はじめがかんじん'にジャンプする\n" +
     "\n" +
-    "言語の更なる仕様やコードの説明に関してはhttps://github.com/jtwp470/gochiusa-bot/issues/43 が詳しい"
+    "言語の更なる仕様やコードの説明に関してはhttps://github.com/ryosan-470/gochiusa-bot/issues/43 が詳しい"
     msg.send help_text
   robot.hear /glang sample/i, (msg) ->
     sample = "Hello, World! を出力するごちうさ言語の例:\n" +

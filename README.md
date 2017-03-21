@@ -1,7 +1,7 @@
 # gochiusa-bot
 
-[![Travis](https://img.shields.io/travis/ryo-san470/gochiusa-bot.svg?style=flat-square)](https://travis-ci.org/ryo-san470/gochiusa-bot)
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://jtwp470.mit-license.org/)
+[![Travis](https://img.shields.io/travis/ryosan-470/gochiusa-bot.svg?style=flat-square)](https://travis-ci.org/ryosan-470/gochiusa-bot)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://ryosan-470.mit-license.org/)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
@@ -36,11 +36,11 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 
 ## How to contribute
 
-1. 本リポジトリを[フォーク(Fork)](https://github.com/ryo-san470/gochiusa-bot/fork)してください．
+1. 本リポジトリを[フォーク(Fork)](https://github.com/ryosan-470/gochiusa-bot/fork)してください．
 2. 重複するプルリクエストを作成しないために他のプルリクエストを確認しましょう．
 3. 自分のリポジトリにプッシュし，プルリクエストを作成して下さい．このときCIを通過するコードを提出して下さい．
 
-[Wiki](https://github.com/ryo-san470/gochiusa-bot/wiki)を参照すると役に立つ頃があるかもしれません．
+[Wiki](https://github.com/ryosan-470/gochiusa-bot/wiki)を参照すると役に立つ頃があるかもしれません．
 
 ### :warning: CAUTION
 文法チェックを追加しました.CoffeeScriptが正しく書かれていないとエラーになります.(例えば2インデントのところを4インデントにしているなど)
@@ -58,19 +58,19 @@ JavaScriptにも文法チェックを追加しました.
 ## Contributors
 
 * @dorapon2000
-    * [点数計算機能の追加](https://github.com/jtwp470/gochiusa-bot/pull/13)
+    * [点数計算機能の追加](https://github.com/ryosan-470/gochiusa-bot/pull/13)
 * @index30, @sga0221, @ksepynoin
-    * [麻雀役を出力する機能の追加](https://github.com/jtwp470/gochiusa-bot/issues/14)
-    * [麻雀役を出力する機能のソースコード改善](https://github.com/jtwp470/gochiusa-bot/issues/21)
+    * [麻雀役を出力する機能の追加](https://github.com/ryosan-470/gochiusa-bot/issues/14)
+    * [麻雀役を出力する機能のソースコード改善](https://github.com/ryosan-470/gochiusa-bot/issues/21)
 * @sga0221
-    * [マジカルシルクハットゲーム機能の追加](https://github.com/jtwp470/gochiusa-bot/pull/62)
-    * [575の文章にadd-reactionする](https://github.com/jtwp470/gochiusa-bot/pull/74)
-    * [折部やすなジェネレーター](https://github.com/jtwp470/gochiusa-bot/pull/77)
+    * [マジカルシルクハットゲーム機能の追加](https://github.com/ryosan-470/gochiusa-bot/pull/62)
+    * [575の文章にadd-reactionする](https://github.com/ryosan-470/gochiusa-bot/pull/74)
+    * [折部やすなジェネレーター](https://github.com/ryosan-470/gochiusa-bot/pull/77)
 
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015 - 2017 jtwp470
+Copyright (c) 2015 - 2017 ryosan-470
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
