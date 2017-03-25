@@ -20,7 +20,7 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 * 麻雀点数計算機能
   * `3翻30符`とかで点数を返します. (Thanks to [@dorapon2000](https://github.com/dorapon2000))
   ![点数表示](./assets/mahjong-calc.png)
-  * 麻雀役出力機能 (Thanks to [@index30](https://github.com/index30), [@sga0221](https://github.com/sga0221), [@ksepynoin](https://github.com/ksepynoin))
+  * 麻雀役出力機能 (Thanks to [@index30](https://github.com/index30), [@sga0221](https://github.com/sga0221), [@ytmt365](https://github.com/ytmt365))
   ![麻雀役出力機能](./assets/mahjong.png)
 * ごちうさ言語の利用 (詳細は`glang help`を参考のこと)
 * マジカルシルクハットゲーム機能
@@ -59,7 +59,7 @@ JavaScriptにも文法チェックを追加しました.
 
 * @dorapon2000
     * [点数計算機能の追加](https://github.com/ryosan-470/gochiusa-bot/pull/13)
-* @index30, @sga0221, @ksepynoin
+* @index30, @sga0221, @ytmt365
     * [麻雀役を出力する機能の追加](https://github.com/ryosan-470/gochiusa-bot/issues/14)
     * [麻雀役を出力する機能のソースコード改善](https://github.com/ryosan-470/gochiusa-bot/issues/21)
 * @sga0221
