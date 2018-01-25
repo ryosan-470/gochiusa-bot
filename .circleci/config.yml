@@ -28,6 +28,8 @@ jobs:
             mkdir /caches
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker save -o /caches/bot.tar
+            else
+              touch /caches/bot.tar
             fi
       - persist_to_workspace:
           root: /caches
