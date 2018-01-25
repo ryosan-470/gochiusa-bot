@@ -27,7 +27,7 @@ jobs:
           command: |
             mkdir /caches
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker save -o /caches/bot.tar
+              docker save -o /caches/bot.tar ${CONTAINER_NAME}
             else
               touch /caches/bot.tar
             fi
