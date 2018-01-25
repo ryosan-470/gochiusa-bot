@@ -1,0 +1,66 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:18.01.0-ce-git
+    environment:
+      - CONTAINER_NAME: registry.heroku.com/gochiusa-bot/web
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Login registry.heroku.com
+          command: docker login --username=_ --password=${HEROKU_API_KEY} registry.heroku.com
+      - run:
+          name: Pull docker image
+          command: docker pull ${CONTAINER_NAME}
+      - run:
+          name: Build Docker image
+          command: |
+            docker build --cache-from ${CONTAINER_NAME} -t ${CONTAINER_NAME} .
+      - run:
+          name: Test
+          command: |
+            docker run --rm ${CONTAINER_NAME} /app/bot_test.sh
+      - run:
+          name: Backup docker image
+          command: |
+            mkdir /caches
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker save -o /caches/bot.tar
+            fi
+      - persist_to_workspace:
+          root: /caches
+          paths:
+            - bot.tar
+
+  push:
+    docker:
+      - image: docker:18.01.0-ce-git
+    steps:
+      - attach_workspace:
+          at: /caches
+      - run:
+          name: Load Docker image
+          command: |
+            set +o pipefail
+            docker load -i /caches/bot.tar | true
+      - run:
+          name: Login registry.heroku.com
+          command: docker login --username=_ --password=${HEROKU_API_KEY} registry.heroku.com
+      - deploy:
+          name: Deploy to Heroku
+          command: docker push ${CONTAINER_NAME}
+
+workflows:
+  version: 2
+  build-and-push:
+    jobs:
+      - build
+      - push:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master

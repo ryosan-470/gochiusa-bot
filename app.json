@@ -1,7 +1,7 @@
 {
   "name": "gochiusa-bot",
   "description": "'Is the order a rabbit?' BOT",
-  "repository": "https://github.com/ryo-san470/gochiusa-bot",
+  "repository": "https://github.com/ryosan-470/gochiusa-bot",
   "env": {
     "HUBOT_SLACK_TOKEN": {
       "description": "The adapter for slack and your deploying server"
@@ -18,14 +18,6 @@
       "description": "Your heroku domain. e.g: https://<your_app_name>.herokuapp.com"
     }
   },
-  "buildpacks": [
-    {
-      "url": "https://github.com/mojodna/heroku-buildpack-cairo.git"
-    },
-    {
-      "url": "heroku/nodejs"
-    }
-  ],
   "addons": [
     "rediscloud"
   ]

@@ -1,6 +1,6 @@
 # gochiusa-bot
 
-[![Travis](https://img.shields.io/travis/ryosan-470/gochiusa-bot.svg?style=flat-square)](https://travis-ci.org/ryosan-470/gochiusa-bot)
+[![CircleCI](https://img.shields.io/circleci/project/github/ryosan-470/gochiusa-bot.svg?style=flat-square)](https://circleci.com/gh/ryosan-470/gochiusa-bot/)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://ryosan-470.mit-license.org/)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
