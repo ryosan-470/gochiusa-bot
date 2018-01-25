@@ -39,6 +39,8 @@ jobs:
   push:
     docker:
       - image: docker:18.01.0-ce-git
+    environment:
+      - CONTAINER_NAME: registry.heroku.com/gochiusa-bot/web
     steps:
       - setup_remote_docker
       - attach_workspace:
