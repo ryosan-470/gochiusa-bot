@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 # TRAVIS LINT TEST
 COFFEE_FILES=$(find scripts -type f -name '*.coffee')
 JAVASCRIPT_FILES=$(find scripts -type f -name '*.js')
 return_val=0;
+PATH=`npm bin`:$PATH
 
 coffeelint $COFFEE_FILES
 if [ $? -ne 0 ]; then
