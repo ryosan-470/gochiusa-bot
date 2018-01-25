@@ -40,6 +40,7 @@ jobs:
     docker:
       - image: docker:18.01.0-ce-git
     steps:
+      - setup_remote_docker
       - attach_workspace:
           at: /caches
       - run:
