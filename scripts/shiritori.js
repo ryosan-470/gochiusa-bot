@@ -17,8 +17,14 @@ var BRAIN_KEY = "shiritori";
   var url = "https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue";
   var apiKey = process.env.DOCOMO_API_KEY;
   module.exports = function(robot) {
+    // Usageの表示
+    robot.hear(/^(?:shiritori|しりとり)$/i, function(msg) {
+      msg.send("しりとりの開始／継続：「しりとり hoge」");
+      msg.send("しりとりのリセット：「reset しりとり」");
+    });
+
     // しりとりの開始／継続
-    robot.hear(/(shiritori|しりとり)(\s*)(\S+)/i, function(msg) {
+    robot.hear(/^(shiritori|しりとり)(\s+)(\S+)/i, function(msg) {
       var requestUrl = url + "?APIKEY=" + apiKey;
       // BRAINからcontextを取得
       var context = robot.brain.get(BRAIN_KEY);
@@ -29,20 +35,23 @@ var BRAIN_KEY = "shiritori";
         "context": context,
         "mode": "srtr" // しりとりモード
       });
-      return robot.http(requestUrl).header("Content-type", "application/json").post(
+      robot.http(requestUrl).header("Content-type", "application/json").post(
         data)(function(err, res, body) {
           var result = JSON.parse(body);
           var resWord = result.utt;
-          robot.brain.set(BRAIN_KEY, result.context);
-          return msg.send(resWord);
+          var context = result.context;
+          if (context !== null) {
+            robot.brain.set(BRAIN_KEY, result.context);
+          }
+          msg.send(resWord);
         });
     });
 
     // しりとりのリセット
-    robot.hear(/reset(\s*)(shiritori|しりとり)/i, function(msg) {
+    robot.hear(/^reset(\s+)(shiritori|しりとり)/i, function(msg) {
       // BRAINのリセット
       robot.brain.set(BRAIN_KEY, null);
-      return msg.send("しりとりをやり直します.");
+      msg.send("しりとりをやり直します.");
     });
   };
 }).call(this);
