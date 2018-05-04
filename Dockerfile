@@ -1,4 +1,4 @@
-FROM node:9.4-alpine
+FROM node:8-alpine
 
 MAINTAINER Ryosuke SATO <rskjtwp@gmail.com>
 
