@@ -17,6 +17,9 @@
     "HEROKU_URL": {
       "description": "Your heroku domain. e.g: https://<your_app_name>.herokuapp.com"
     }
+    "DOCOMO_API_KEY": {
+      "description": "docomo Developer support's api key. If you want, please refer to https://dev.smt.docomo.ne.jp/?p=index"
+    }
   },
   "addons": [
     "rediscloud"

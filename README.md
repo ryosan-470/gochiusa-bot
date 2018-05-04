@@ -34,6 +34,9 @@ gochiusa-bot is "Is the order a rabbit?" BOT.
 
   ![ジェネレーターの出力例](./assets/viewyasuna.png)
 
+* しりとり機能
+  * botとひたすらしりとりをする機能.
+
 ## How to contribute
 
 1. 本リポジトリを[フォーク(Fork)](https://github.com/ryosan-470/gochiusa-bot/fork)してください．
