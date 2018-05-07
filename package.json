@@ -15,7 +15,7 @@
     "hubot-help": "^0.1.1",
     "hubot-maps": "0.0.2",
     "hubot-misawa": "^0.1.1",
-    "hubot-redis-brain": "0.0.2",
+    "hubot-redis-brain": "0.0.4",
     "hubot-rules": "^0.1.0",
     "hubot-scripts": "^2.5.16",
     "hubot-slack": "^3.3.0",
