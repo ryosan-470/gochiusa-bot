@@ -96,7 +96,7 @@ module.exports = (robot) ->
     # 絵文字1-9num表示用
     int2num = (n) ->
       if n in [0..9]
-        return ":" + n + "num:"
+        return ":#{n}num:"
       else
         return ":bob:"
     # 乱数生成(mahjong.coffeeより拝借)
