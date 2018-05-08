@@ -109,7 +109,7 @@ module.exports = (robot) ->
       Math.floor(Math.random() * i)
     # slotの値の表示用
     # optionはslot以外に表示したいもの用
-    slotView = (edge, cen, option) ->
+    slotView = (edge, cen, option="") ->
       if option
         "#{int2num(edge)}#{int2num(cen)}#{int2num(edge)}#{option}"
       else
@@ -131,7 +131,7 @@ module.exports = (robot) ->
         ":basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku::end-nhk:")
       else
         center_num = edge_num
-        msg.send slotView(edge_num, center_num, "")
+        msg.send slotView(edge_num, center_num)
     # 何もない時(3割でスロットが揃う)
     else
       if r_num < 30 and edge_num == 7
@@ -155,4 +155,4 @@ module.exports = (robot) ->
         msg.send slotView(edge_num, center_num,
         ":confetti_ball:")
       else
-        msg.send slotView(edge_num, center_num, "")
+        msg.send slotView(edge_num, center_num)
