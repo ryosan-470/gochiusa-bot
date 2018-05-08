@@ -118,6 +118,8 @@ module.exports = (robot) ->
     bob_time = false# 以下のedge_numが10の時の絵文字がbobなので(??)
     edge_num = getRandomInt(0, 10)
     r_num = randNum(100)
+    str_basirisk = ":basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku:"
+    str_time = ":basi_ta::basi_i::basi_mu:"
 
     # バジリスクタイム中
     if b_basitime
@@ -128,7 +130,7 @@ module.exports = (robot) ->
         b_basitime = false
         b_disp_basi = false
         msg.send slotView(edge_num, center_num,
-        ":basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku::end-nhk:")
+        "#{str_basirisk}:end-nhk:")
       else
         center_num = edge_num
         msg.send slotView(edge_num, center_num)
@@ -146,11 +148,11 @@ module.exports = (robot) ->
         center_num = getRandomInt(0, 10)
       if b_basitime and b_disp_basi == false
         msg.send slotView(edge_num, center_num,
-        "\n\n:basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku:\n:space::basi_ta::basi_i::basi_mu:")
+        "\n\n#{str_basirisk}\n:space:#{str_time}")
         b_disp_basi = true
       else if bob_time
         msg.send slotView(edge_num, center_num,
-        "\n\n:space::bob::space:\n:basi_ta::basi_i::basi_mu:")
+        "\n\n:space::bob::space:\n#{str_time}")
       else if center_num == edge_num
         msg.send slotView(edge_num, center_num,
         ":confetti_ball:")
