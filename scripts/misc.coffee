@@ -26,8 +26,13 @@ mana_img = require './data/5mana_matome.json'
 module.exports = (robot) ->
   MyUtil = require("./myutil")
   util = new MyUtil(robot)
+  ## Use for basirisk time in slot!!!!!!!
+  ## Don't use it in other method!!!
+  #### b_basitime...Return bool whether it's basirisk time now
+  #### b_disp_basi...Return bool whether display emoji(basirisk time)
   b_basitime = false
   b_disp_basi = false
+  ##
 
   robot.hear /c2e ([A-Za-z\d ]+$)/, (msg) ->  # 大文字小文字のアルファベット，数字を受理
     result = ""
