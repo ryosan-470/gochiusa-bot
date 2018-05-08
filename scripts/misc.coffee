@@ -117,8 +117,7 @@ module.exports = (robot) ->
       # 3割の確率で終了, 7割で続行
       if r_num < 30
         other_nums = [0..10].filter (x) -> x != edge_num
-        ind = getRandomInt(0, 9)
-        center_num = other_nums[ind]
+        center_num = other_nums[getRandomInt(0, 9)]
         b_basitime = false
         b_disp_basi = false
         msg.send int2num(edge_num)+int2num(center_num)+int2num(edge_num)+":basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku::end-nhk:"
