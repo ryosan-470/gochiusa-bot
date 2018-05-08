@@ -15,6 +15,7 @@
 #    :say 114514 - 乱数で'114514'という数列が現れるかどうか。
 #                  500回以内に出せたら回数を出力。失敗したら終了
 #    :yasuna 感動 - 見たら本当に絶対「感動」するよ.もし「感動」しなかったら木下に埋めてもらっても構わないよ
+#    :slot - スロットをするよ(端2つの値は必ず一緒になってる)
 #乱数の生成メソッド
 getRandomInt = (min, max) ->
   Math.floor(Math.random() * (max - min + 1)) + min
@@ -25,6 +26,13 @@ mana_img = require './data/5mana_matome.json'
 module.exports = (robot) ->
   MyUtil = require("./myutil")
   util = new MyUtil(robot)
+  ## Use for basirisk time in slot!!!!!!!
+  ## Don't use it in other method!!!
+  #### b_basitime...Return bool whether it's basirisk time now
+  #### b_disp_basi...Return bool whether display emoji(basirisk time)
+  b_basitime = false
+  b_disp_basi = false
+  ##
 
   robot.hear /c2e ([A-Za-z\d ]+$)/, (msg) ->  # 大文字小文字のアルファベット，数字を受理
     result = ""
@@ -88,3 +96,65 @@ module.exports = (robot) ->
     if URL == undefined
       URL = "localhost:8080"
     util.richImageView msg, "折部やすなー", "#{URL}/api/yasuna?word=#{word}"
+
+  robot.hear /slot/, (msg) ->
+    # 絵文字1-9num表示用
+    int2num = (n) ->
+      if n in [0..9]
+        return ":#{n}num:"
+      else
+        return ":bob:"
+    # 乱数生成(mahjong.coffeeより拝借)
+    randNum = (i) ->
+      Math.floor(Math.random() * i)
+    # slotの値の表示用
+    # optionはslot以外に表示したいもの用
+    slotView = (edge, cen, option="") ->
+      if option
+        "#{int2num(edge)}#{int2num(cen)}#{int2num(edge)}#{option}"
+      else
+        "#{int2num(edge)}#{int2num(cen)}#{int2num(edge)}"
+
+    bob_time = false# 以下のedge_numが10の時の絵文字がbobなので(??)
+    edge_num = getRandomInt(0, 10)
+    r_num = randNum(100)
+    str_basirisk = ":basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku:"
+    str_time = ":basi_ta::basi_i::basi_mu:"
+
+    # バジリスクタイム中
+    if b_basitime
+      # 3割の確率で終了, 7割で続行
+      if r_num < 30
+        other_nums = [0..10].filter (x) -> x != edge_num
+        center_num = other_nums[getRandomInt(0, 9)]
+        b_basitime = false
+        b_disp_basi = false
+        msg.send slotView(edge_num, center_num,
+        "#{str_basirisk}:end-nhk:")
+      else
+        center_num = edge_num
+        msg.send slotView(edge_num, center_num)
+    # 何もない時(3割でスロットが揃う)
+    else
+      if r_num < 30 and edge_num == 7
+        center_num = edge_num
+        b_basitime = true
+      else if r_num < 30 and edge_num == 10
+        center_num = edge_num
+        bob_time = true
+      else if r_num < 30
+        center_num = edge_num
+      else
+        center_num = getRandomInt(0, 10)
+      if b_basitime and b_disp_basi == false
+        msg.send slotView(edge_num, center_num,
+        "\n\n#{str_basirisk}\n:space:#{str_time}")
+        b_disp_basi = true
+      else if bob_time
+        msg.send slotView(edge_num, center_num,
+        "\n\n:space::bob::space:\n#{str_time}")
+      else if center_num == edge_num
+        msg.send slotView(edge_num, center_num,
+        ":confetti_ball:")
+      else
+        msg.send slotView(edge_num, center_num)
