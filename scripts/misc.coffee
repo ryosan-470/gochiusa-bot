@@ -108,8 +108,12 @@ module.exports = (robot) ->
     randNum = (i) ->
       Math.floor(Math.random() * i)
     # slotの値の表示用
-    slotView = (edge, cen) ->
-      "#{int2num(edge)}#{int2num(cen)}#{int2num(edge)}"
+    # optionはslot以外に表示したいもの用
+    slotView = (edge, cen, option) ->
+      if option
+        "#{int2num(edge)}#{int2num(cen)}#{int2num(edge)}#{option}"
+      else
+        "#{int2num(edge)}#{int2num(cen)}#{int2num(edge)}"
 
     bob_time = false# 以下のedge_numが10の時の絵文字がbobなので(??)
     edge_num = getRandomInt(0, 10)
@@ -123,10 +127,11 @@ module.exports = (robot) ->
         center_num = other_nums[getRandomInt(0, 9)]
         b_basitime = false
         b_disp_basi = false
-        msg.send slotView(edge_num, center_num)+":basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku::end-nhk:"
+        msg.send slotView(edge_num, center_num,
+        ":basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku::end-nhk:")
       else
         center_num = edge_num
-        msg.send slotView(edge_num, center_num)
+        msg.send slotView(edge_num, center_num, "")
     # 何もない時(3割でスロットが揃う)
     else
       if r_num < 30 and edge_num == 7
@@ -140,11 +145,14 @@ module.exports = (robot) ->
       else
         center_num = getRandomInt(0, 10)
       if b_basitime and b_disp_basi == false
-        msg.send slotView(edge_num, center_num)+"\n\n:basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku:\n:space::basi_ta::basi_i::basi_mu:"
+        msg.send slotView(edge_num, center_num,
+        "\n\n:basi_ba::basi_si::basi_ri::basi_ri::basi_su::basi_ku:\n:space::basi_ta::basi_i::basi_mu:")
         b_disp_basi = true
       else if bob_time
-        msg.send slotView(edge_num, center_num)+"\n\n:space::bob::space:\n:basi_ta::basi_i::basi_mu:"
+        msg.send slotView(edge_num, center_num,
+        "\n\n:space::bob::space:\n:basi_ta::basi_i::basi_mu:")
       else if center_num == edge_num
-        msg.send slotView(edge_num, center_num)+":confetti_ball:"
+        msg.send slotView(edge_num, center_num,
+        ":confetti_ball:")
       else
-        msg.send slotView(edge_num, center_num)
+        msg.send slotView(edge_num, center_num, "")
