@@ -35,7 +35,7 @@
     "test": "./bot_test.sh"
   },
   "devDependencies": {
-    "coffeelint": "latest",
+    "coffeelint": "^1.16.1",
     "eslint": "^2.11.1",
     "eslint-config-google": "^0.5.0"
   }
