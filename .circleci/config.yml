@@ -23,6 +23,10 @@ jobs:
           command: |
             docker run --rm ${CONTAINER_NAME} /app/bot_test.sh
       - run:
+          name: Test with --config-check parameter
+          command: |
+            docker run --rm ${CONTAINER_NAME} /app/bin/hubot --config-check
+      - run:
           name: Backup docker image
           command: |
             mkdir /caches
