@@ -5,7 +5,7 @@
   "author": "ryosan-470",
   "description": "Is the order a rabbit?",
   "dependencies": {
-    "canvas": "^1.3.15",
+    "canvas": "^1.6.11",
     "canvas2": "^1.3.11",
     "coffee-script": "1.12.7",
     "hubot": "^2.12.0",
@@ -24,7 +24,7 @@
     "mktemp": "^0.4.0",
     "opentype.js": "^0.6.3",
     "path": "^0.12.7",
-    "request": "^2.72.0",
+    "request": "^2.87.0",
     "swig": "^1.4.2"
   },
   "engines": {
