@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:18.01.0-ce-git
+      - image: docker:18.05.0-ce-git
     environment:
       - CONTAINER_NAME: registry.heroku.com/gochiusa-bot/web
     steps:
@@ -10,7 +10,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Login registry.heroku.com
-          command: docker login --username=_ --password=${HEROKU_API_KEY} registry.heroku.com
+          command: echo ${HEROKU_API_KEY} | docker login --username=_ --password-stdin registry.heroku.com
       - run:
           name: Pull docker image
           command: docker pull ${CONTAINER_NAME}
@@ -42,7 +42,7 @@ jobs:
 
   push:
     docker:
-      - image: docker:18.01.0-ce-git
+      - image: docker:18.05.0-ce-git
     environment:
       - CONTAINER_NAME: registry.heroku.com/gochiusa-bot/web
     steps:
@@ -56,7 +56,7 @@ jobs:
             docker load -i /caches/bot.tar | true
       - run:
           name: Login registry.heroku.com
-          command: docker login --username=_ --password=${HEROKU_API_KEY} registry.heroku.com
+          command: echo ${HEROKU_API_KEY} | docker login --username=_ --password-stdin registry.heroku.com
       - deploy:
           name: Deploy to Heroku
           command: docker push ${CONTAINER_NAME}
